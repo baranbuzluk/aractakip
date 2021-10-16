@@ -15,8 +15,4 @@ public class AracTakipMain extends Application {
 		primaryStage.setScene(window.getScene());
 		primaryStage.show();
 	}
-
-	public static void main(String[] args) {
-		launch(args);
-	}
 }
