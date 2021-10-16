@@ -15,7 +15,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-@EnableJpaRepositories("bm.aractakip.repository")
+@EnableJpaRepositories("com.ldselektronik.repository")
 public class DatabaseConfig {
 
 	@Bean
@@ -34,7 +34,7 @@ public class DatabaseConfig {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(dataSource);
 		lef.setJpaVendorAdapter(jpaVendorAdapter);
-		lef.setPackagesToScan("com.ldselektronik");
+		lef.setPackagesToScan("com.ldselektronik.model");
 		return lef;
 	}
 
