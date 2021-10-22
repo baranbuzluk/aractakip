@@ -14,7 +14,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <TableView fx:id="recordTableView" layoutX="1.0" layoutY="1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                        <TableView fx:id="registrationTableView" layoutX="1.0" layoutY="1.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
                            <columns>
                               <TableColumn fx:id="idColumn" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="ID" />
                               <TableColumn fx:id="documentNoColumn" editable="false" prefWidth="132.0" resizable="false" sortable="false" text="Seri No" />

@@ -1,6 +1,10 @@
 package com.ldselektronik.scenes.carregistration.view;
 
 import java.io.IOException;
+import java.util.Date;
+
+import com.ldselektronik.dto.CarBrandDTO;
+import com.ldselektronik.dto.CarRegistrationDTO;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,13 +13,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class CarRegistrationController {
 
 	@FXML
-	private TableColumn<?, ?> licenseColumn;
+	private TableColumn<CarRegistrationDTO, String> licenseColumn;
 
 	@FXML
 	private TextField idField;
@@ -24,7 +29,7 @@ public class CarRegistrationController {
 	private TextField companyNameField;
 
 	@FXML
-	private ComboBox<?> brandCBox;
+	private ComboBox<CarBrandDTO> brandCBox;
 
 	@FXML
 	private AnchorPane rootPane;
@@ -39,7 +44,7 @@ public class CarRegistrationController {
 	private Button recordDeleteButton;
 
 	@FXML
-	private TableColumn<?, ?> companyColumn;
+	private TableColumn<CarRegistrationDTO, String> companyColumn;
 
 	@FXML
 	private TextField carLicenseField;
@@ -57,25 +62,25 @@ public class CarRegistrationController {
 	private TextField surnameField;
 
 	@FXML
-	private TableColumn<?, ?> documentNoColumn;
+	private TableColumn<CarRegistrationDTO, String> documentNoColumn;
 
 	@FXML
-	private TableColumn<?, ?> nameColumn;
+	private TableColumn<CarRegistrationDTO, String> nameColumn;
 
 	@FXML
 	private Button recordSearchButton;
 
 	@FXML
-	private TableColumn<?, ?> dateColumn;
+	private TableColumn<CarRegistrationDTO, Date> dateColumn;
 
 	@FXML
-	private TableView<?> recordTableView;
+	private TableView<CarRegistrationDTO> registrationTableView;
 
 	@FXML
-	private TableColumn<?, ?> brandColumn;
+	private TableColumn<CarRegistrationDTO, CarBrandDTO> brandColumn;
 
 	@FXML
-	private TableColumn<?, ?> idColumn;
+	private TableColumn<CarRegistrationDTO, Integer> idColumn;
 
 	@FXML
 	private TextField documentNoField;
@@ -85,6 +90,7 @@ public class CarRegistrationController {
 	}
 
 	public Pane getPane() {
+		
 		return rootPane;
 	}
 
@@ -98,5 +104,7 @@ public class CarRegistrationController {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 }
