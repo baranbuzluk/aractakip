@@ -1,4 +1,4 @@
-package com.ldselektronik.view;
+package com.ldselektronik.scenes.carregistration.view;
 
 import java.io.IOException;
 
