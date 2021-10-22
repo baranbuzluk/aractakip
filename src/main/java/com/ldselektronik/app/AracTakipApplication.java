@@ -1,11 +1,12 @@
 package com.ldselektronik.app;
 
-import com.ldselektronik.config.AbstractAppConfigService;
+import com.ldselektronik.config.IAppConfigService;
 
 import javafx.application.Application;
-
-public class AracTakipApplication extends AbstractAppConfigService{
+	
+public class AracTakipApplication implements IAppConfigService{
 	public static void main(String[] args) {
 		Application.launch(AracTakipMain.class, args);
 	}
+	
 }
