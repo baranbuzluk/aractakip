@@ -7,5 +7,5 @@ import com.ldselektronik.model.CarBrand;
 
 @Repository
 public interface CarBrandRepository extends JpaRepository<CarBrand, Integer> {
-
+	boolean existsByName(String name);
 }
