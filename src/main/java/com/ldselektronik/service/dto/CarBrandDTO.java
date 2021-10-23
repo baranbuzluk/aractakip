@@ -1,4 +1,4 @@
-package com.ldselektronik.dto;
+package com.ldselektronik.service.dto;
 
 /**
  *

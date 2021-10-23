@@ -1,4 +1,4 @@
-package com.ldselektronik.config;
+package com.ldselektronik.configuration;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

@@ -1,6 +1,6 @@
-package com.ldselektronik.app;
+package com.ldselektronik.application;
 
-import com.ldselektronik.config.IAppConfigService;
+import com.ldselektronik.configuration.IAppConfigService;
 
 import javafx.application.Application;
 	

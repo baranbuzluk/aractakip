@@ -1,4 +1,4 @@
-package com.ldselektronik.config;
+package com.ldselektronik.configuration;
 
 import java.util.logging.Logger;
 

@@ -1,9 +1,9 @@
-package com.ldselektronik.dto.converter;
+package com.ldselektronik.service.dto.converter;
 
-import com.ldselektronik.dto.CarBrandDTO;
-import com.ldselektronik.dto.CarRegistrationDTO;
-import com.ldselektronik.model.CarBrand;
-import com.ldselektronik.model.CarRegistration;
+import com.ldselektronik.data.model.CarBrand;
+import com.ldselektronik.data.model.CarRegistration;
+import com.ldselektronik.service.dto.CarBrandDTO;
+import com.ldselektronik.service.dto.CarRegistrationDTO;
 
 public final class Converter {
 	private Converter() {

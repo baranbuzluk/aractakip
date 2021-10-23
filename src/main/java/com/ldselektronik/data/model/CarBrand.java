@@ -1,4 +1,4 @@
-package com.ldselektronik.model;
+package com.ldselektronik.data.model;
 
 import java.io.Serializable;
 import java.util.List;

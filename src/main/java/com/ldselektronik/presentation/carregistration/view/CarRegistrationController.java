@@ -1,12 +1,12 @@
-package com.ldselektronik.scenes.carregistration.view;
+package com.ldselektronik.presentation.carregistration.view;
 
 import java.util.Date;
 
-import com.ldselektronik.config.IAppConfigService;
-import com.ldselektronik.dto.CarBrandDTO;
-import com.ldselektronik.dto.CarRegistrationDTO;
-import com.ldselektronik.service.CarBrandService;
-import com.ldselektronik.service.CarRegistrationService;
+import com.ldselektronik.configuration.IAppConfigService;
+import com.ldselektronik.service.dto.CarBrandDTO;
+import com.ldselektronik.service.dto.CarRegistrationDTO;
+import com.ldselektronik.service.impl.CarBrandService;
+import com.ldselektronik.service.impl.CarRegistrationService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package com.ldselektronik.config;
+package com.ldselektronik.configuration;
 
 import org.hibernate.resource.beans.container.internal.NoSuchBeanException;
 import org.springframework.context.ConfigurableApplicationContext;
