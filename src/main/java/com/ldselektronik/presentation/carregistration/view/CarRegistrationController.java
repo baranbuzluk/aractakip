@@ -22,6 +22,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+/**
+ * @author Baran
+ *
+ */
 public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
@@ -107,7 +111,7 @@ public class CarRegistrationController implements IAppConfigService {
 		columnDocumentNo.setCellValueFactory(new PropertyValueFactory<>("documentNo"));
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnLicense.setCellValueFactory(new PropertyValueFactory<>("carLicense"));
-		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnName.setCellValueFactory(new PropertyValueFactory<>("nameAndSurname"));
 
 		// Init ComboBox
 		cboxBrand.setItems(carBrandService.getAll());
@@ -120,11 +124,27 @@ public class CarRegistrationController implements IAppConfigService {
 		// Init Button
 		btnRegister.setOnMouseClicked(btnRegisterOnAction);
 		btnRefresh.setOnMouseClicked(btnRefreshOnAction);
+		btnDelete.setOnMouseClicked(btnDeleteOnAction);
 	}
 
 	public Pane getPane() {
 		return rootPane;
 	}
+
+	/**
+	 * @see {@link CarRegistrationController} <br>
+	 *      This object is used at
+	 *      {@code btnDelete.setOnMouseClicked(btnDeleteOnAction);}
+	 * 
+	 */
+	EventHandler<MouseEvent> btnDeleteOnAction = event -> {
+		if (CarRegistrationControllerHelper.confirmDeleteOperation()) {
+			carRegistrationService.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
+			tableRegistration.setItems(carRegistrationService.getAll());
+			clearFields();
+		}
+
+	};
 
 	/**
 	 * @see {@link CarRegistrationController} <br>
@@ -158,8 +178,14 @@ public class CarRegistrationController implements IAppConfigService {
 			Number newValue) -> {
 
 		CarRegistrationDTO selected = tableRegistration.getSelectionModel().getSelectedItem();
-		if(selected!=null)
+		if (selected != null) {
 			toFieldFromDto(carRegistrationService.findById(selected.getId()));
+			btnDelete.setDisable(false);
+
+		} else {
+			clearFields();
+			btnDelete.setDisable(true);
+		}
 
 	};
 

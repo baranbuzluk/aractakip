@@ -19,6 +19,10 @@ import com.ldselektronik.service.dto.converter.Converter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * @author Baran
+ *
+ */
 @Service
 @Transactional
 public class CarRegistrationService {
@@ -60,5 +64,10 @@ public class CarRegistrationService {
 	public CarRegistrationDTO findById(int id) {
 		Optional<CarRegistration> optional = repository.findById(id);
 		return optional.isPresent() ? Converter.toCarRegistrationDTO(optional.get()) : null;
+	}
+	
+	public void deleteById(int id)
+	{
+		repository.deleteById(id);
 	}
 }

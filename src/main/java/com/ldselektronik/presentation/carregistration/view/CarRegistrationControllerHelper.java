@@ -1,9 +1,17 @@
 package com.ldselektronik.presentation.carregistration.view;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
+/**
+ * @author Baran
+ *
+ */
 public final class CarRegistrationControllerHelper {
 
 	private CarRegistrationControllerHelper() {
@@ -20,6 +28,25 @@ public final class CarRegistrationControllerHelper {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	/**
+	 * Opens confirmation window for approving delete operation
+	 * 
+	 * @return <code>true</code> -If yes button is clicked <br>
+	 *         <code>false</code> - Other cases
+	 *
+	 */
+	static boolean confirmDeleteOperation() {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("ATTENTION");
+		alert.setHeaderText("Bu işlem geri alınamaz.\nKayıt silinsin mi ?");
+		alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+		Optional<ButtonType> buttonType = alert.showAndWait();
+		if (buttonType.isPresent())
+			return buttonType.get() == ButtonType.YES;
+
+		return false;
+
+	}
+
 }

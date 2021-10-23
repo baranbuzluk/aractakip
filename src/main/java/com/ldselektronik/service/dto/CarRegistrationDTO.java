@@ -105,4 +105,8 @@ public final class CarRegistrationDTO {
 		this.carBrand = carBrand;
 	}
 
+	public String getNameAndSurname() {
+		return this.name + " " + this.surname;
+	}
+
 }

@@ -5,6 +5,10 @@ import com.ldselektronik.data.model.CarRegistration;
 import com.ldselektronik.service.dto.CarBrandDTO;
 import com.ldselektronik.service.dto.CarRegistrationDTO;
 
+/**
+ * @author Baran
+ *
+ */
 public final class Converter {
 	private Converter() {
 
