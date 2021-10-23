@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ldselektronik.dto.CarBrandDTO;
+import com.ldselektronik.dto.converter.Converter;
 import com.ldselektronik.model.CarBrand;
 import com.ldselektronik.repository.CarBrandRepository;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 /**
@@ -30,11 +30,9 @@ public class CarBrandService {
 
 	public ObservableList<CarBrandDTO> getAll() {
 		List<CarBrand> brandList = repository.findAll();
-		List<CarBrandDTO> brandDTOList	= brandList
-				.stream()
-				.map(brand -> new CarBrandDTO(brand.getId(), brand.getName())) // Converts CarBrand object to CarBrandDTO object
+		// Converts CarBrand object to CarBrandDTO object
+		List<CarBrandDTO> brandDTOList = brandList.stream().map(brand -> Converter.toCarBrandDTO(brand)) 
 				.collect(Collectors.toList());
-		
 		return FXCollections.observableArrayList(brandDTOList);
 	}
 
@@ -53,10 +51,7 @@ public class CarBrandService {
 		if (repository.existsByName(brand.getName()) || brand.getName().isEmpty() || brand.getName() == null)
 			return;
 
-		CarBrand temp = new CarBrand();
-		temp.setId(brand.getId());
-		temp.setName(brand.getName());
-		repository.save(temp);
+		repository.save(Converter.toCarBrand(brand));
 	}
 
 }

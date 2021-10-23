@@ -13,8 +13,7 @@ public class CarRegistrationScene {
 	}
 
 	public Scene getScene() {
-		Scene scene = new Scene(controller.getPane());
-		return scene;
+		return  new Scene(controller.getPane());
 	}
 
 }

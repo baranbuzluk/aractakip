@@ -7,17 +7,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import com.ldselektronik.config.AppConfig;
 import com.ldselektronik.dto.CarBrandDTO;
 
-public class CarBrandServiceTest {
+class CarBrandServiceTest {
 
 	ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 	private CarBrandService service = applicationContext.getBean(CarBrandService.class);
 
-	
 	@Test
-	public void saveTest()  {
+	void saveTest() {
 		CarBrandDTO brand = new CarBrandDTO();
 		brand.setName("BMW");
-		
+
 		CarBrandDTO brand1 = new CarBrandDTO();
 		brand1.setName("Honda");
 		service.save(brand);

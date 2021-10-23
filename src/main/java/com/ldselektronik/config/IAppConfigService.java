@@ -13,7 +13,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public interface  IAppConfigService {
 
-	public final static ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+	public static final ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(
 			AppConfig.class);
 
 	public  default <T> T getBean(Class<T> requiredType) {
