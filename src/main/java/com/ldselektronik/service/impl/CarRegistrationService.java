@@ -38,7 +38,7 @@ public class CarRegistrationService {
 
 	/**
 	 * If there is the object has same <code>documentNo</code> value in the table,
-	 * The object is not saved to the table.
+	 * The object is not saved to the table but is updated.
 	 * 
 	 */
 	public void save(CarRegistrationDTO registration) {
@@ -46,8 +46,10 @@ public class CarRegistrationService {
 			logger.log(Level.WARNING, "Error CarRegistrationDTO object is null!");
 			return;
 		}
-		if (repository.existsByDocumentNo(registration.getDocumentNo()))
-			return;
+		if (repository.existsByDocumentNo(registration.getDocumentNo())) {
+			Integer id = repository.findByDocumentNo(registration.getDocumentNo()).getId();
+			registration.setId(id);
+		}
 		repository.save(Converter.toCarRegistration(registration));
 	}
 }

@@ -119,7 +119,7 @@ public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
 	void btnRefreshOnAction(ActionEvent event) {
-		System.err.println("Test");
+		tableRegistration.setItems(carRegistrationService.getAll());
 	}
 
 	@FXML
