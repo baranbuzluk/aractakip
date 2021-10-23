@@ -4,6 +4,10 @@ import com.ldselektronik.presentation.carregistration.view.CarRegistrationContro
 
 import javafx.scene.Scene;
 
+/**
+ * @author Baran
+ *
+ */
 public class CarRegistrationScene {
 
 	private CarRegistrationController controller;

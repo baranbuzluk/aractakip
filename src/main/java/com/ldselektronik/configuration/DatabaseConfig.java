@@ -14,6 +14,10 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
+/**
+ * @author Baran
+ *
+ */
 @Configuration
 @EnableJpaRepositories("com.ldselektronik.data.repository")
 public class DatabaseConfig {

@@ -10,6 +10,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 
+/**
+ * @author Baran
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = "com.ldselektronik")
 @EnableAutoConfiguration

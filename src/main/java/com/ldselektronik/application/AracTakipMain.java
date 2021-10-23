@@ -5,6 +5,10 @@ import com.ldselektronik.presentation.carregistration.impl.CarRegistrationScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * @author Baran
+ *
+ */
 public class AracTakipMain extends Application {
 
 	@Override
