@@ -51,6 +51,10 @@ public class CarRegistration implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CarBrand.class)
 	@JoinColumn(name = "fk_car_brand_id", insertable = true,updatable = true)
 	private CarBrand carBrand;
+	
+	public CarRegistration() {
+		createdTime = new Date();
+	}
 
 	public int getId() {
 		return id;

@@ -43,7 +43,6 @@ public final class Converter {
 		model.setCarBrand(toCarBrand(obj.getCarBrand()));
 		model.setCarLicense(obj.getCarLicense());
 		model.setCompanyName(obj.getCompanyName());
-		model.setCreatedTime(obj.getCreatedTime());
 		model.setDocumentNo(obj.getDocumentNo());
 		model.setId(obj.getId());
 		model.setName(obj.getName());
