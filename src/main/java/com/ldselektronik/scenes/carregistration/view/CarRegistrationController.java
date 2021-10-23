@@ -1,13 +1,14 @@
 package com.ldselektronik.scenes.carregistration.view;
 
-import java.io.IOException;
 import java.util.Date;
 
+import com.ldselektronik.config.IAppConfigService;
 import com.ldselektronik.dto.CarBrandDTO;
 import com.ldselektronik.dto.CarRegistrationDTO;
+import com.ldselektronik.service.CarBrandService;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -17,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class CarRegistrationController {
+public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
 	private TableColumn<CarRegistrationDTO, String> columnLicense;
@@ -59,7 +60,7 @@ public class CarRegistrationController {
 	private Button btnRegister;
 
 	@FXML
-	private Button btnRecordRefresh;
+	private Button btnRefresh;
 
 	@FXML
 	private TableColumn<CarRegistrationDTO, CarBrandDTO> columnBrand;
@@ -84,29 +85,11 @@ public class CarRegistrationController {
 
 	@FXML
 	private TextField fieldId;
-
-	public CarRegistrationController() {
-		loadFxml();
-		initTableColumns();
-	}
-
-	public Pane getPane() {
-
-		return rootPane;
-	}
-
-	private void loadFxml() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("car_registration.fxml"));
-			loader.setController(this);
-			loader.load();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void initTableColumns() {
+	
+	private CarBrandService carBrandService = getBean(CarBrandService.class); 
+	
+	private void initControlObjects() {
+		// Table Column Settings
 		columnBrand.setCellValueFactory(new PropertyValueFactory<>("carBrand"));
 		columnCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 		columnDate.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
@@ -114,6 +97,41 @@ public class CarRegistrationController {
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnLicense.setCellValueFactory(new PropertyValueFactory<>("carLicense"));
 		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		
+		// Init ComboBox
+		cboxBrand.setItems(carBrandService.getAll());
+		cboxBrand.getSelectionModel().selectFirst();
+	}
+	
+	public CarRegistrationController() {
+		CarRegistrationControllerHelper.loadFxml(this);
+		initControlObjects();
+	}
+
+	public Pane getPane() {
+		return rootPane;
+	}
+
+
+
+	@FXML
+	void btnRefreshOnAction(ActionEvent event) {
+		System.err.println("Test");
+	}
+
+	@FXML
+	void btnRegisterOnAction(ActionEvent event) {
+		System.err.println("Test");
+	}
+
+	@FXML
+	void btnSearchOnAction(ActionEvent event) {
+		System.err.println("Test");
+	}
+
+	@FXML
+	void btnDeleteOnAction(ActionEvent event) {
+		System.err.println("Test");
 	}
 
 }

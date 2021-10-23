@@ -1,6 +1,7 @@
 package com.ldselektronik.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,10 @@ import org.springframework.stereotype.Service;
 import com.ldselektronik.dto.CarBrandDTO;
 import com.ldselektronik.model.CarBrand;
 import com.ldselektronik.repository.CarBrandRepository;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 
 /**
  * 
@@ -23,8 +28,14 @@ public class CarBrandService {
 	@Autowired
 	private CarBrandRepository repository;
 
-	public List<CarBrand> getAll() {
-		return repository.findAll();
+	public ObservableList<CarBrandDTO> getAll() {
+		List<CarBrand> brandList = repository.findAll();
+		List<CarBrandDTO> brandDTOList	= brandList
+				.stream()
+				.map(brand -> new CarBrandDTO(brand.getId(), brand.getName())) // Converts CarBrand object to CarBrandDTO object
+				.collect(Collectors.toList());
+		
+		return FXCollections.observableArrayList(brandDTOList);
 	}
 
 	/**
