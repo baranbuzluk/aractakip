@@ -83,16 +83,22 @@ public final class CarRegistrationDTO {
 		this.carLicense = carLicense;
 	}
 
+	/**
+	 * @return <code>createdTime == null ? new Date() : createdTime</code>
+	 */
 	public Date getCreatedTime() {
-		return createdTime;
+		return createdTime == null ? new Date() : createdTime;
 	}
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
+	/**
+	 * @return <code>carBrand == null ? new CarBrandDTO () : carBrand</code>
+	 */
 	public CarBrandDTO getCarBrand() {
-		return carBrand;
+		return carBrand == null ? new CarBrandDTO() : carBrand;
 	}
 
 	public void setCarBrand(CarBrandDTO carBrand) {
