@@ -7,5 +7,5 @@ import com.ldselektronik.model.CarRegistration;
 
 @Repository
 public interface CarRegistrationRepository  extends JpaRepository<CarRegistration, Integer> {
-
+	boolean existsByDocumentNo(String documentNo);
 }

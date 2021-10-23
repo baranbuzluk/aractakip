@@ -6,6 +6,7 @@ import com.ldselektronik.config.IAppConfigService;
 import com.ldselektronik.dto.CarBrandDTO;
 import com.ldselektronik.dto.CarRegistrationDTO;
 import com.ldselektronik.service.CarBrandService;
+import com.ldselektronik.service.CarRegistrationService;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,6 +88,7 @@ public class CarRegistrationController implements IAppConfigService {
 	private TextField fieldId;
 	
 	private CarBrandService carBrandService = getBean(CarBrandService.class); 
+	private CarRegistrationService carRegistrationService = getBean(CarRegistrationService.class); 
 	
 	private void initControlObjects() {
 		// Table Column Settings
@@ -101,6 +103,9 @@ public class CarRegistrationController implements IAppConfigService {
 		// Init ComboBox
 		cboxBrand.setItems(carBrandService.getAll());
 		cboxBrand.getSelectionModel().selectFirst();
+		
+		//Init Table
+		tableRegistration.setItems(carRegistrationService.getAll());
 	}
 	
 	public CarRegistrationController() {
@@ -112,8 +117,6 @@ public class CarRegistrationController implements IAppConfigService {
 		return rootPane;
 	}
 
-
-
 	@FXML
 	void btnRefreshOnAction(ActionEvent event) {
 		System.err.println("Test");
@@ -121,7 +124,8 @@ public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
 	void btnRegisterOnAction(ActionEvent event) {
-		System.err.println("Test");
+		carRegistrationService.save(toDtoFromFields());
+		tableRegistration.setItems(carRegistrationService.getAll());
 	}
 
 	@FXML
@@ -132,6 +136,19 @@ public class CarRegistrationController implements IAppConfigService {
 	@FXML
 	void btnDeleteOnAction(ActionEvent event) {
 		System.err.println("Test");
+	}
+	
+	private CarRegistrationDTO toDtoFromFields()
+	{
+		CarRegistrationDTO dto = new CarRegistrationDTO();
+		dto.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
+		dto.setCarLicense(fieldCarLicense.getText());
+		dto.setCompanyName(fieldCompanyName.getText());
+		dto.setDocumentNo(fieldDocumentNo.getText());
+		dto.setName(fieldName.getText());
+		dto.setPhone(fieldPhone.getText());
+		dto.setSurname(fieldSurname.getText());
+		return dto;
 	}
 
 }

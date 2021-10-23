@@ -1,6 +1,8 @@
 package com.ldselektronik.service;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -27,6 +29,9 @@ public class CarBrandService {
 
 	@Autowired
 	private CarBrandRepository repository;
+	
+	@Autowired
+	private Logger logger;
 
 	public ObservableList<CarBrandDTO> getAll() {
 		List<CarBrand> brandList = repository.findAll();
@@ -42,15 +47,12 @@ public class CarBrandService {
 	 * 
 	 */
 	public void save(CarBrandDTO brand) {
-
 		if (brand == null) {
-			System.out.println("Error CarBrand object is null!");
+			logger.log(Level.WARNING, "Error CarBrand object is null!");
 			return;
 		}
-
 		if (repository.existsByName(brand.getName()) || brand.getName().isEmpty() || brand.getName() == null)
 			return;
-
 		repository.save(Converter.toCarBrand(brand));
 	}
 
