@@ -8,7 +8,9 @@ import com.ldselektronik.service.dto.CarRegistrationDTO;
 import com.ldselektronik.service.impl.CarBrandService;
 import com.ldselektronik.service.impl.CarRegistrationService;
 
-import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,6 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -86,12 +89,18 @@ public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
 	private TextField fieldId;
-	
-	private CarBrandService carBrandService = getBean(CarBrandService.class); 
-	private CarRegistrationService carRegistrationService = getBean(CarRegistrationService.class); 
-	
+
+	private CarBrandService carBrandService = getBean(CarBrandService.class);
+
+	private CarRegistrationService carRegistrationService = getBean(CarRegistrationService.class);
+
+	public CarRegistrationController() {
+		CarRegistrationControllerHelper.loadFxml(this);
+		initControlObjects();
+	}
+
 	private void initControlObjects() {
-		// Table Column Settings
+		// Init TableColumn
 		columnBrand.setCellValueFactory(new PropertyValueFactory<>("carBrand"));
 		columnCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 		columnDate.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
@@ -99,47 +108,62 @@ public class CarRegistrationController implements IAppConfigService {
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnLicense.setCellValueFactory(new PropertyValueFactory<>("carLicense"));
 		columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
+
 		// Init ComboBox
 		cboxBrand.setItems(carBrandService.getAll());
 		cboxBrand.getSelectionModel().selectFirst();
-		
-		//Init Table
+
+		// Init Table
 		tableRegistration.setItems(carRegistrationService.getAll());
-	}
-	
-	public CarRegistrationController() {
-		CarRegistrationControllerHelper.loadFxml(this);
-		initControlObjects();
+		tableRegistration.getSelectionModel().selectedIndexProperty().addListener(selectedTableRow);
+
+		// Init Button
+		btnRegister.setOnMouseClicked(btnRegisterOnAction);
+		btnRefresh.setOnMouseClicked(btnRefreshOnAction);
 	}
 
 	public Pane getPane() {
 		return rootPane;
 	}
 
-	@FXML
-	void btnRefreshOnAction(ActionEvent event) {
+	/**
+	 * @see {@link CarRegistrationController} <br>
+	 *      This object is used at
+	 *      {@code btnRefresh.setOnMouseClicked(btnRefreshOnAction);}
+	 * 
+	 */
+	EventHandler<MouseEvent> btnRefreshOnAction = event -> {
 		tableRegistration.setItems(carRegistrationService.getAll());
-	}
+		clearFields();
+	};
 
-	@FXML
-	void btnRegisterOnAction(ActionEvent event) {
+	/**
+	 * @see {@link CarRegistrationController} <br>
+	 *      This object is used at
+	 *      {@code btnRegister.setOnMouseClicked(btnRegisterOnAction)}
+	 * 
+	 */
+	EventHandler<MouseEvent> btnRegisterOnAction = event -> {
 		carRegistrationService.save(toDtoFromFields());
 		tableRegistration.setItems(carRegistrationService.getAll());
-	}
+	};
 
-	@FXML
-	void btnSearchOnAction(ActionEvent event) {
-		System.err.println("Test");
-	}
+	/**
+	 * @see {@link CarRegistrationController} <br>
+	 *      This object is used at
+	 *      {@code tableRegistration.getSelectionModel().selectedIndexProperty().addListener(selectedTableRow);}
+	 * 
+	 */
+	ChangeListener<Number> selectedTableRow = (ObservableValue<? extends Number> observable, Number oldValue,
+			Number newValue) -> {
 
-	@FXML
-	void btnDeleteOnAction(ActionEvent event) {
-		System.err.println("Test");
-	}
-	
-	private CarRegistrationDTO toDtoFromFields()
-	{
+		CarRegistrationDTO selected = tableRegistration.getSelectionModel().getSelectedItem();
+		if(selected!=null)
+			toFieldFromDto(carRegistrationService.findById(selected.getId()));
+
+	};
+
+	private CarRegistrationDTO toDtoFromFields() {
 		CarRegistrationDTO dto = new CarRegistrationDTO();
 		dto.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
 		dto.setCarLicense(fieldCarLicense.getText());
@@ -148,7 +172,33 @@ public class CarRegistrationController implements IAppConfigService {
 		dto.setName(fieldName.getText());
 		dto.setPhone(fieldPhone.getText());
 		dto.setSurname(fieldSurname.getText());
+		dto.setId(!fieldId.getText().isEmpty() ? Integer.valueOf(fieldId.getText()) : 0);
 		return dto;
+	}
+
+	private void toFieldFromDto(CarRegistrationDTO dto) {
+		fieldCarLicense.setText(dto.getCarLicense());
+		fieldCompanyName.setText(dto.getCompanyName());
+		fieldDate.setText(dto.getCreatedTime().toString());
+		fieldDocumentNo.setText(dto.getDocumentNo());
+		fieldId.setText(String.valueOf(dto.getId()));
+		fieldName.setText(dto.getName());
+		fieldPhone.setText(dto.getPhone());
+		fieldSurname.setText(dto.getSurname());
+		cboxBrand.getSelectionModel().select(dto.getCarBrand());
+	}
+
+	private void clearFields() {
+		String empty = "";
+		fieldCarLicense.setText(empty);
+		fieldCompanyName.setText(empty);
+		fieldDate.setText(empty);
+		fieldDocumentNo.setText(empty);
+		fieldId.setText(empty);
+		fieldName.setText(empty);
+		fieldPhone.setText(empty);
+		fieldSurname.setText(empty);
+		cboxBrand.getSelectionModel().selectFirst();
 	}
 
 }
