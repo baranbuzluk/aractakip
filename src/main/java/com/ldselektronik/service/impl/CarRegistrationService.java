@@ -1,6 +1,7 @@
 package com.ldselektronik.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -51,5 +52,13 @@ public class CarRegistrationService {
 			registration.setId(id);
 		}
 		repository.save(Converter.toCarRegistration(registration));
+	}
+	/**
+	 * 
+	 * @return <code>null</code> - if id is not found 
+	 *    */
+	public CarRegistrationDTO findById(int id) {
+		Optional<CarRegistration> optional = repository.findById(id);
+		return optional.isPresent() ? Converter.toCarRegistrationDTO(optional.get()) : null;
 	}
 }
