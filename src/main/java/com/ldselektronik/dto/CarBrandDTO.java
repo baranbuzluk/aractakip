@@ -10,7 +10,7 @@ public final class CarBrandDTO {
 	private int id;
 
 	private String name;
-	
+
 	public CarBrandDTO(int id, String name) {
 		super();
 		this.id = id;
@@ -35,5 +35,11 @@ public final class CarBrandDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	@Override
+	public String toString() {
+
+		return this.name;
+	}
+
 }
