@@ -15,6 +15,7 @@ import com.ldselektronik.data.model.CarRegistration;
 import com.ldselektronik.data.repository.CarRegistrationRepository;
 import com.ldselektronik.service.dto.CarRegistrationDTO;
 import com.ldselektronik.service.dto.converter.Converter;
+import com.ldselektronik.strategy.list.AbstractListStrategy;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +33,9 @@ public class CarRegistrationService {
 
 	@Autowired
 	private Logger logger;
+
+	@Autowired
+	private AbstractListStrategy<CarRegistrationRepository, CarRegistration> listStrategy;
 
 	public ObservableList<CarRegistrationDTO> getAll() {
 		List<CarRegistration> registrationList = repository.findAll();
@@ -57,17 +61,25 @@ public class CarRegistrationService {
 		}
 		repository.save(Converter.toCarRegistration(registration));
 	}
+
 	/**
 	 * 
-	 * @return <code>null</code> - if id is not found 
-	 *    */
+	 * @return <code>null</code> - if given id is not found
+	 */
 	public CarRegistrationDTO findById(int id) {
 		Optional<CarRegistration> optional = repository.findById(id);
 		return optional.isPresent() ? Converter.toCarRegistrationDTO(optional.get()) : null;
 	}
-	
-	public void deleteById(int id)
-	{
+
+	public void deleteById(int id) {
 		repository.deleteById(id);
+	}
+
+	public ObservableList<CarRegistrationDTO> searchCarRegistration(CarRegistrationDTO registration) {
+		List<CarRegistrationDTO> dtoList = listStrategy.getListByStrategy(Converter.toCarRegistration(registration))
+				.stream()
+				.map(Converter::toCarRegistrationDTO)
+				.collect(Collectors.toList());
+		return FXCollections.observableArrayList(dtoList);
 	}
 }

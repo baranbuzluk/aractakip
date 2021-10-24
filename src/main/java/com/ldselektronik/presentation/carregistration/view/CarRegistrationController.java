@@ -122,9 +122,10 @@ public class CarRegistrationController implements IAppConfigService {
 		tableRegistration.getSelectionModel().selectedIndexProperty().addListener(selectedTableRow);
 
 		// Init Button
-		btnRegister.setOnMouseClicked(btnRegisterOnAction);
-		btnRefresh.setOnMouseClicked(btnRefreshOnAction);
-		btnDelete.setOnMouseClicked(btnDeleteOnAction);
+		btnRegister.setOnMouseClicked(btnRegisterOnMouseClicked);
+		btnRefresh.setOnMouseClicked(btnRefreshOnMouseClicked);
+		btnDelete.setOnMouseClicked(btnDeleteOnMouseClicked);
+		btnSearch.setOnMouseClicked(btnSearchOnMouseClicked);
 	}
 
 	public Pane getPane() {
@@ -134,10 +135,10 @@ public class CarRegistrationController implements IAppConfigService {
 	/**
 	 * @see {@link CarRegistrationController} <br>
 	 *      This object is used at
-	 *      {@code btnDelete.setOnMouseClicked(btnDeleteOnAction);}
+	 *      {@code btnDelete.setOnMouseClicked(btnDeleteOnMouseClicked)}
 	 * 
 	 */
-	EventHandler<MouseEvent> btnDeleteOnAction = event -> {
+	EventHandler<MouseEvent> btnDeleteOnMouseClicked = event -> {
 		if (CarRegistrationControllerHelper.confirmDeleteOperation()) {
 			carRegistrationService.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
 			tableRegistration.setItems(carRegistrationService.getAll());
@@ -149,10 +150,10 @@ public class CarRegistrationController implements IAppConfigService {
 	/**
 	 * @see {@link CarRegistrationController} <br>
 	 *      This object is used at
-	 *      {@code btnRefresh.setOnMouseClicked(btnRefreshOnAction);}
+	 *      {@code btnRefresh.setOnMouseClicked(btnRefreshOnMouseClicked)}
 	 * 
 	 */
-	EventHandler<MouseEvent> btnRefreshOnAction = event -> {
+	EventHandler<MouseEvent> btnRefreshOnMouseClicked = event -> {
 		tableRegistration.setItems(carRegistrationService.getAll());
 		clearFields();
 	};
@@ -160,12 +161,22 @@ public class CarRegistrationController implements IAppConfigService {
 	/**
 	 * @see {@link CarRegistrationController} <br>
 	 *      This object is used at
-	 *      {@code btnRegister.setOnMouseClicked(btnRegisterOnAction)}
+	 *      {@code btnRegister.setOnMouseClicked(btnRegisterOnMouseClicked)}
 	 * 
 	 */
-	EventHandler<MouseEvent> btnRegisterOnAction = event -> {
+	EventHandler<MouseEvent> btnRegisterOnMouseClicked = event -> {
 		carRegistrationService.save(toDtoFromFields());
 		tableRegistration.setItems(carRegistrationService.getAll());
+	};
+	
+	/**
+	 * @see {@link CarRegistrationController} <br>
+	 *      This object is used at
+	 *      {@code btnSearch.setOnMouseClicked(btnSearchOnMouseClicked)}
+	 * 
+	 */
+	EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
+		tableRegistration.setItems(carRegistrationService.searchCarRegistration(toDtoFromFields()));
 	};
 
 	/**
