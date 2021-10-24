@@ -45,6 +45,10 @@ public class CarRegistrationService {
 		return FXCollections.observableArrayList(registrationDTOList);
 	}
 
+	public boolean existsByDocumentNo(String documentNo) {
+		return repository.existsByDocumentNo(documentNo);
+	}
+
 	/**
 	 * If there is the object has same <code>documentNo</code> value in the table,
 	 * The object is not saved to the table but is updated.
@@ -55,7 +59,7 @@ public class CarRegistrationService {
 			logger.log(Level.WARNING, "Error CarRegistrationDTO object is null!");
 			return;
 		}
-		if (repository.existsByDocumentNo(registration.getDocumentNo())) {
+		if (existsByDocumentNo(registration.getDocumentNo())) {
 			Integer id = repository.findByDocumentNo(registration.getDocumentNo()).getId();
 			registration.setId(id);
 		}
@@ -77,9 +81,7 @@ public class CarRegistrationService {
 
 	public ObservableList<CarRegistrationDTO> searchCarRegistration(CarRegistrationDTO registration) {
 		List<CarRegistrationDTO> dtoList = listStrategy.getListByStrategy(Converter.toCarRegistration(registration))
-				.stream()
-				.map(Converter::toCarRegistrationDTO)
-				.collect(Collectors.toList());
+				.stream().map(Converter::toCarRegistrationDTO).collect(Collectors.toList());
 		return FXCollections.observableArrayList(dtoList);
 	}
 }

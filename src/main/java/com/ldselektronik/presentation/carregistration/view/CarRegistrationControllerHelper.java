@@ -30,16 +30,16 @@ public final class CarRegistrationControllerHelper {
 	}
 
 	/**
-	 * Opens confirmation window for approving delete operation
+	 * Opens confirmation window for approving any a operation
 	 * 
 	 * @return <code>true</code> -If yes button is clicked <br>
 	 *         <code>false</code> - Other cases
 	 *
 	 */
-	static boolean confirmDeleteOperation() {
+	static boolean confirmationAlert(String title,String msg) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("ATTENTION");
-		alert.setHeaderText("Bu işlem geri alınamaz.\nKayıt silinsin mi ?");
+		alert.setTitle(title);
+		alert.setHeaderText(msg);
 		alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 		Optional<ButtonType> buttonType = alert.showAndWait();
 		if (buttonType.isPresent())

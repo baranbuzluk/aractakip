@@ -139,7 +139,8 @@ public class CarRegistrationController implements IAppConfigService {
 	 * 
 	 */
 	EventHandler<MouseEvent> btnDeleteOnMouseClicked = event -> {
-		if (CarRegistrationControllerHelper.confirmDeleteOperation()) {
+		if (CarRegistrationControllerHelper.confirmationAlert("Silme işlemi yapılıyor",
+				"Bu işlem geri alınamaz.\nKayıt silinsin mi ?")) {
 			carRegistrationService.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
 			tableRegistration.setItems(carRegistrationService.getAll());
 			clearFields();
@@ -165,10 +166,22 @@ public class CarRegistrationController implements IAppConfigService {
 	 * 
 	 */
 	EventHandler<MouseEvent> btnRegisterOnMouseClicked = event -> {
-		carRegistrationService.save(toDtoFromFields());
+		CarRegistrationDTO dto = toDtoFromFields();
+
+		if (carRegistrationService.existsByDocumentNo(dto.getDocumentNo())) {
+			String title = "Kayıt Güncelleniyor";
+			String msg = "Dökümasyon No: " + dto.getDocumentNo() + " olan araç kaydını güncellemek istiyormusunuz?";
+
+			if (CarRegistrationControllerHelper.confirmationAlert(title, msg)) {
+				carRegistrationService.save(dto);
+			}
+		} else {
+			carRegistrationService.save(dto);
+		}
+
 		tableRegistration.setItems(carRegistrationService.getAll());
 	};
-	
+
 	/**
 	 * @see {@link CarRegistrationController} <br>
 	 *      This object is used at
@@ -189,13 +202,15 @@ public class CarRegistrationController implements IAppConfigService {
 			Number newValue) -> {
 
 		CarRegistrationDTO selected = tableRegistration.getSelectionModel().getSelectedItem();
-		if (selected != null) {
+		if (selected != null) { // when table row is select
 			toFieldFromDto(carRegistrationService.findById(selected.getId()));
 			btnDelete.setDisable(false);
+			fieldDocumentNo.setDisable(true);
 
 		} else {
 			clearFields();
 			btnDelete.setDisable(true);
+			fieldDocumentNo.setDisable(false);
 		}
 
 	};
