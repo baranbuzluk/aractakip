@@ -1,4 +1,4 @@
-package com.ldselektronik.service.impl;
+package com.ldselektronik.application.carregistration.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +11,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ldselektronik.data.model.CarRegistration;
-import com.ldselektronik.data.repository.CarRegistrationRepository;
-import com.ldselektronik.service.dto.CarRegistrationDTO;
-import com.ldselektronik.service.dto.converter.Converter;
-import com.ldselektronik.strategy.list.AbstractListStrategy;
+import com.ldselektronik.application.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.application.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.application.carregistration.data.repository.CarRegistrationRepository;
+import com.ldselektronik.strategy.AbstractListStrategy;
+import com.ldselektronik.util.EntityDtoConverter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,13 +35,13 @@ public class CarRegistrationService {
 	private Logger logger;
 
 	@Autowired
-	private AbstractListStrategy<CarRegistrationRepository, CarRegistration> listStrategy;
+	private AbstractListStrategy<CarRegistrationRepository, CarRegistrationEntity> listStrategy;
 
-	public ObservableList<CarRegistrationDTO> getAll() {
-		List<CarRegistration> registrationList = repository.findAll();
-		List<CarRegistrationDTO> registrationDTOList = registrationList.stream()
+	public ObservableList<CarRegistrationDto> getAll() {
+		List<CarRegistrationEntity> registrationList = repository.findAll();
+		List<CarRegistrationDto> registrationDTOList = registrationList.stream()
 				// Converts CarRegistration object to CarRegistrationDTO object
-				.map(registration -> Converter.toCarRegistrationDTO(registration)).collect(Collectors.toList());
+				.map(registration -> EntityDtoConverter.toCarRegistrationDTO(registration)).collect(Collectors.toList());
 		return FXCollections.observableArrayList(registrationDTOList);
 	}
 
@@ -54,7 +54,7 @@ public class CarRegistrationService {
 	 * The object is not saved to the table but is updated.
 	 * 
 	 */
-	public void save(CarRegistrationDTO registration) {
+	public void save(CarRegistrationDto registration) {
 		if (registration == null) {
 			logger.log(Level.WARNING, "Error CarRegistrationDTO object is null!");
 			return;
@@ -63,25 +63,25 @@ public class CarRegistrationService {
 			Integer id = repository.findByDocumentNo(registration.getDocumentNo()).getId();
 			registration.setId(id);
 		}
-		repository.save(Converter.toCarRegistration(registration));
+		repository.save(EntityDtoConverter.toCarRegistration(registration));
 	}
 
 	/**
 	 * 
 	 * @return <code>null</code> - if given id is not found
 	 */
-	public CarRegistrationDTO findById(int id) {
-		Optional<CarRegistration> optional = repository.findById(id);
-		return optional.isPresent() ? Converter.toCarRegistrationDTO(optional.get()) : null;
+	public CarRegistrationDto findById(int id) {
+		Optional<CarRegistrationEntity> optional = repository.findById(id);
+		return optional.isPresent() ? EntityDtoConverter.toCarRegistrationDTO(optional.get()) : null;
 	}
 
 	public void deleteById(int id) {
 		repository.deleteById(id);
 	}
 
-	public ObservableList<CarRegistrationDTO> searchCarRegistration(CarRegistrationDTO registration) {
-		List<CarRegistrationDTO> dtoList = listStrategy.getListByStrategy(Converter.toCarRegistration(registration))
-				.stream().map(Converter::toCarRegistrationDTO).collect(Collectors.toList());
+	public ObservableList<CarRegistrationDto> searchCarRegistration(CarRegistrationDto registration) {
+		List<CarRegistrationDto> dtoList = listStrategy.getListByStrategy(EntityDtoConverter.toCarRegistration(registration))
+				.stream().map(EntityDtoConverter::toCarRegistrationDTO).collect(Collectors.toList());
 		return FXCollections.observableArrayList(dtoList);
 	}
 }

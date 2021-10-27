@@ -1,23 +1,23 @@
-package com.ldselektronik.service.dto;
+package com.ldselektronik.application.carregistration.data.dto;
 
 /**
  *
  * 
  * @author Baran
  */
-public final class CarBrandDTO {
+public final class CarBrandDto {
 
 	private int id;
 
 	private String name;
 
-	public CarBrandDTO(int id, String name) {
+	public CarBrandDto(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public CarBrandDTO() {
+	public CarBrandDto() {
 	}
 
 	public int getId() {

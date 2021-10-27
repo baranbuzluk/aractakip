@@ -1,4 +1,4 @@
-package com.ldselektronik.strategy.list;
+package com.ldselektronik.strategy;
 
 import java.util.List;
 import java.util.logging.Logger;

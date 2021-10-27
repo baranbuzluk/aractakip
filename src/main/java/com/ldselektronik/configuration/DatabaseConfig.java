@@ -19,7 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  *
  */
 @Configuration
-@EnableJpaRepositories("com.ldselektronik.data.repository")
+@EnableJpaRepositories("com.ldselektronik")
 public class DatabaseConfig {
 
 	@Bean
@@ -38,7 +38,7 @@ public class DatabaseConfig {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(dataSource);
 		lef.setJpaVendorAdapter(jpaVendorAdapter);
-		lef.setPackagesToScan("com.ldselektronik.data.model");
+		lef.setPackagesToScan("com.ldselektronik");
 		return lef;
 	}
 

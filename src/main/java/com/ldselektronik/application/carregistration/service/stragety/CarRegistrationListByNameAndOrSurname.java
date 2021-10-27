@@ -1,4 +1,4 @@
-package com.ldselektronik.strategy.list.impl.carregistration;
+package com.ldselektronik.application.carregistration.service.stragety;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.stereotype.Component;
 
-import com.ldselektronik.data.model.CarRegistration;
-import com.ldselektronik.data.repository.CarRegistrationRepository;
-import com.ldselektronik.service.impl.CarRegistrationService;
-import com.ldselektronik.strategy.list.AbstractListStrategy;
+import com.ldselektronik.application.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.application.carregistration.data.repository.CarRegistrationRepository;
+import com.ldselektronik.application.carregistration.service.CarRegistrationService;
+import com.ldselektronik.strategy.AbstractListStrategy;
 
 /**
  * 
@@ -23,11 +23,11 @@ import com.ldselektronik.strategy.list.AbstractListStrategy;
  */
 @Component
 public class CarRegistrationListByNameAndOrSurname
-		extends AbstractListStrategy<CarRegistrationRepository, CarRegistration> {
+		extends AbstractListStrategy<CarRegistrationRepository, CarRegistrationEntity> {
 
 	@Override
-	public List<CarRegistration> getListByStrategy(CarRegistration arg) {
-		List<CarRegistration> foundList = new ArrayList<>();
+	public List<CarRegistrationEntity> getListByStrategy(CarRegistrationEntity arg) {
+		List<CarRegistrationEntity> foundList = new ArrayList<>();
 
 		if (arg == null) {
 			logger.severe("Param arg is null!");

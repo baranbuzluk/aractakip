@@ -1,6 +1,6 @@
 package com.ldselektronik.application;
 
-import com.ldselektronik.presentation.carregistration.impl.CarRegistrationScene;
+import com.ldselektronik.application.carregistration.presentation.scene.CarRegistrationScene;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

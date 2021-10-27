@@ -1,4 +1,4 @@
-package com.ldselektronik.service.dto;
+package com.ldselektronik.application.carregistration.data.dto;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Baran
  */
 
-public final class CarRegistrationDTO {
+public final class CarRegistrationDto {
 
 	private int id;
 
@@ -25,7 +25,7 @@ public final class CarRegistrationDTO {
 
 	private Date createdTime;
 
-	private CarBrandDTO carBrand;
+	private CarBrandDto carBrand;
 
 	public int getId() {
 		return id;
@@ -97,11 +97,11 @@ public final class CarRegistrationDTO {
 	/**
 	 * @return <code>carBrand == null ? new CarBrandDTO () : carBrand</code>
 	 */
-	public CarBrandDTO getCarBrand() {
-		return carBrand == null ? new CarBrandDTO() : carBrand;
+	public CarBrandDto getCarBrand() {
+		return carBrand == null ? new CarBrandDto() : carBrand;
 	}
 
-	public void setCarBrand(CarBrandDTO carBrand) {
+	public void setCarBrand(CarBrandDto carBrand) {
 		this.carBrand = carBrand;
 	}
 

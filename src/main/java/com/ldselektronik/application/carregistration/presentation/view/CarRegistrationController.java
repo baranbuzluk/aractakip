@@ -1,12 +1,12 @@
-package com.ldselektronik.presentation.carregistration.view;
+package com.ldselektronik.application.carregistration.presentation.view;
 
 import java.util.Date;
 
+import com.ldselektronik.application.carregistration.data.dto.CarBrandDto;
+import com.ldselektronik.application.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.application.carregistration.service.CarBrandService;
+import com.ldselektronik.application.carregistration.service.CarRegistrationService;
 import com.ldselektronik.configuration.IAppConfigService;
-import com.ldselektronik.service.dto.CarBrandDTO;
-import com.ldselektronik.service.dto.CarRegistrationDTO;
-import com.ldselektronik.service.impl.CarBrandService;
-import com.ldselektronik.service.impl.CarRegistrationService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,7 +29,7 @@ import javafx.scene.layout.Pane;
 public class CarRegistrationController implements IAppConfigService {
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, String> columnLicense;
+	private TableColumn<CarRegistrationDto, String> columnLicense;
 
 	@FXML
 	private TextField fieldName;
@@ -38,22 +38,22 @@ public class CarRegistrationController implements IAppConfigService {
 	private Button btnSearch;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, String> columnCompany;
+	private TableColumn<CarRegistrationDto, String> columnCompany;
 
 	@FXML
-	private ComboBox<CarBrandDTO> cboxBrand;
+	private ComboBox<CarBrandDto> cboxBrand;
 
 	@FXML
 	private AnchorPane rootPane;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, Integer> columnId;
+	private TableColumn<CarRegistrationDto, Integer> columnId;
 
 	@FXML
 	private TextField fieldSurname;
 
 	@FXML
-	private TableView<CarRegistrationDTO> tableRegistration;
+	private TableView<CarRegistrationDto> tableRegistration;
 
 	@FXML
 	private TextField fieldDate;
@@ -71,7 +71,7 @@ public class CarRegistrationController implements IAppConfigService {
 	private Button btnRefresh;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, CarBrandDTO> columnBrand;
+	private TableColumn<CarRegistrationDto, CarBrandDto> columnBrand;
 
 	@FXML
 	private Button btnDelete;
@@ -80,16 +80,16 @@ public class CarRegistrationController implements IAppConfigService {
 	private TextField fieldCarLicense;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, String> columnDocumentNo;
+	private TableColumn<CarRegistrationDto, String> columnDocumentNo;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, Date> columnDate;
+	private TableColumn<CarRegistrationDto, Date> columnDate;
 
 	@FXML
 	private TextField fieldPhone;
 
 	@FXML
-	private TableColumn<CarRegistrationDTO, String> columnName;
+	private TableColumn<CarRegistrationDto, String> columnName;
 
 	@FXML
 	private TextField fieldId;
@@ -166,7 +166,7 @@ public class CarRegistrationController implements IAppConfigService {
 	 * 
 	 */
 	EventHandler<MouseEvent> btnRegisterOnMouseClicked = event -> {
-		CarRegistrationDTO dto = toDtoFromFields();
+		CarRegistrationDto dto = toDtoFromFields();
 
 		if (carRegistrationService.existsByDocumentNo(dto.getDocumentNo())) {
 			String title = "Kayıt Güncelleniyor";
@@ -201,7 +201,7 @@ public class CarRegistrationController implements IAppConfigService {
 	ChangeListener<Number> selectedTableRow = (ObservableValue<? extends Number> observable, Number oldValue,
 			Number newValue) -> {
 
-		CarRegistrationDTO selected = tableRegistration.getSelectionModel().getSelectedItem();
+		CarRegistrationDto selected = tableRegistration.getSelectionModel().getSelectedItem();
 		if (selected != null) { // when table row is select
 			toFieldFromDto(carRegistrationService.findById(selected.getId()));
 			btnDelete.setDisable(false);
@@ -215,8 +215,8 @@ public class CarRegistrationController implements IAppConfigService {
 
 	};
 
-	private CarRegistrationDTO toDtoFromFields() {
-		CarRegistrationDTO dto = new CarRegistrationDTO();
+	private CarRegistrationDto toDtoFromFields() {
+		CarRegistrationDto dto = new CarRegistrationDto();
 		dto.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
 		dto.setCarLicense(fieldCarLicense.getText());
 		dto.setCompanyName(fieldCompanyName.getText());
@@ -228,7 +228,7 @@ public class CarRegistrationController implements IAppConfigService {
 		return dto;
 	}
 
-	private void toFieldFromDto(CarRegistrationDTO dto) {
+	private void toFieldFromDto(CarRegistrationDto dto) {
 		fieldCarLicense.setText(dto.getCarLicense());
 		fieldCompanyName.setText(dto.getCompanyName());
 		fieldDate.setText(dto.getCreatedTime().toString());

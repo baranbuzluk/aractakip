@@ -1,4 +1,4 @@
-package com.ldselektronik.data.model;
+package com.ldselektronik.application.carregistration.data.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
  * @author Baran
  */
 @Entity(name = "car_brand")
-public class CarBrand implements Serializable {
+public class CarBrandEntity implements Serializable {
 
 	private static final long serialVersionUID = -8325590200537745924L;
 
@@ -26,8 +26,8 @@ public class CarBrand implements Serializable {
 
 	private String name;
 
-	@OneToMany(mappedBy = "carBrand",targetEntity = CarRegistration.class)
-	private List<CarRegistration> carRegistrationList;
+	@OneToMany(mappedBy = "carBrand",targetEntity = CarRegistrationEntity.class)
+	private List<CarRegistrationEntity> carRegistrationList;
 
 	public int getId() {
 		return id;
@@ -45,7 +45,7 @@ public class CarBrand implements Serializable {
 		this.name = name;
 	}
 
-	public List<CarRegistration> getCarRegistrationList() {
+	public List<CarRegistrationEntity> getCarRegistrationList() {
 		return carRegistrationList;
 	}
 }
