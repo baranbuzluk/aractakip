@@ -4,7 +4,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.ldselektronik.application.abstracts.IWindow;
-import com.ldselektronik.application.enums.WindowType;
 import com.ldselektronik.configuration.SpringApplicationContext;
 
 import javafx.application.Application;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	ApplicationContext context = new AnnotationConfigApplicationContext(SpringApplicationContext.class);
-	IWindow mainWindow = context.getBean(WindowType.Constant.MAIN,IWindow.class);
+	IWindow mainWindow = context.getBean("MainWindow",IWindow.class);
 
 	public static void main(String[] args) {
 		launch(args);

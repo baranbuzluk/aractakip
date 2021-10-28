@@ -1,4 +1,4 @@
-package com.ldselektronik.window.product.view;
+package com.ldselektronik.window.product.presentation.view;
 
 import com.ldselektronik.util.ControllerHelper;
 
