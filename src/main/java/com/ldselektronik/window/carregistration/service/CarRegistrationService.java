@@ -1,4 +1,4 @@
-package com.ldselektronik.application.carregistration.service;
+package com.ldselektronik.window.carregistration.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +11,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ldselektronik.application.carregistration.data.dto.CarRegistrationDto;
-import com.ldselektronik.application.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.application.carregistration.data.repository.CarRegistrationRepository;
 import com.ldselektronik.strategy.AbstractListStrategy;
 import com.ldselektronik.util.EntityDtoConverter;
+import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.data.repository.CarRegistrationRepository;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

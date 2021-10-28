@@ -1,4 +1,4 @@
-package com.ldselektronik.application.carregistration.presentation.view;
+package com.ldselektronik.util;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -12,15 +12,15 @@ import javafx.scene.control.ButtonType;
  * @author Baran
  *
  */
-public final class CarRegistrationControllerHelper {
+public final class ControllerHelper {
 
-	private CarRegistrationControllerHelper() {
+	private ControllerHelper() {
 
 	}
 
-	static void loadFxml(CarRegistrationController controller) {
+	public static <T> void loadFxml(T controller,String fxmlName) {
 		try {
-			FXMLLoader loader = new FXMLLoader(CarRegistrationController.class.getResource("car_registration.fxml"));
+			FXMLLoader loader = new FXMLLoader(controller.getClass().getResource(fxmlName));
 			loader.setController(controller);
 			loader.load();
 
@@ -36,7 +36,7 @@ public final class CarRegistrationControllerHelper {
 	 *         <code>false</code> - Other cases
 	 *
 	 */
-	static boolean confirmationAlert(String title,String msg) {
+	public static boolean confirmationAlert(String title, String msg) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle(title);
 		alert.setHeaderText(msg);

@@ -1,4 +1,4 @@
-package com.ldselektronik.application.carregistration.service.stragety;
+package com.ldselektronik.window.carregistration.service.stragety;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,10 +8,10 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.stereotype.Component;
 
-import com.ldselektronik.application.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.application.carregistration.data.repository.CarRegistrationRepository;
-import com.ldselektronik.application.carregistration.service.CarRegistrationService;
 import com.ldselektronik.strategy.AbstractListStrategy;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.data.repository.CarRegistrationRepository;
+import com.ldselektronik.window.carregistration.service.CarRegistrationService;
 
 /**
  * 

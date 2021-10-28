@@ -1,12 +1,13 @@
-package com.ldselektronik.application.carregistration.presentation.view;
+package com.ldselektronik.window.carregistration.presentation.view;
 
 import java.util.Date;
 
-import com.ldselektronik.application.carregistration.data.dto.CarBrandDto;
-import com.ldselektronik.application.carregistration.data.dto.CarRegistrationDto;
-import com.ldselektronik.application.carregistration.service.CarBrandService;
-import com.ldselektronik.application.carregistration.service.CarRegistrationService;
-import com.ldselektronik.configuration.IAppConfigService;
+import com.ldselektronik.configuration.SpringApplicationContext;
+import com.ldselektronik.util.ControllerHelper;
+import com.ldselektronik.window.carregistration.data.dto.CarBrandDto;
+import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.window.carregistration.service.CarBrandService;
+import com.ldselektronik.window.carregistration.service.CarRegistrationService;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +27,7 @@ import javafx.scene.layout.Pane;
  * @author Baran
  *
  */
-public class CarRegistrationController implements IAppConfigService {
+public class CarRegistrationController {
 
 	@FXML
 	private TableColumn<CarRegistrationDto, String> columnLicense;
@@ -94,12 +95,14 @@ public class CarRegistrationController implements IAppConfigService {
 	@FXML
 	private TextField fieldId;
 
-	private CarBrandService carBrandService = getBean(CarBrandService.class);
+	private CarBrandService carBrandService;
 
-	private CarRegistrationService carRegistrationService = getBean(CarRegistrationService.class);
+	private CarRegistrationService carRegistrationService;
 
 	public CarRegistrationController() {
-		CarRegistrationControllerHelper.loadFxml(this);
+		this.carRegistrationService=SpringApplicationContext.getApplicationContext().getBean(CarRegistrationService.class);
+		this.carBrandService=SpringApplicationContext.getApplicationContext().getBean(CarBrandService.class);
+		ControllerHelper.loadFxml(this, "car_registration.fxml");
 		initControlObjects();
 	}
 
@@ -139,7 +142,7 @@ public class CarRegistrationController implements IAppConfigService {
 	 * 
 	 */
 	EventHandler<MouseEvent> btnDeleteOnMouseClicked = event -> {
-		if (CarRegistrationControllerHelper.confirmationAlert("Silme işlemi yapılıyor",
+		if (ControllerHelper.confirmationAlert("Silme işlemi yapılıyor",
 				"Bu işlem geri alınamaz.\nKayıt silinsin mi ?")) {
 			carRegistrationService.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
 			tableRegistration.setItems(carRegistrationService.getAll());
@@ -172,7 +175,7 @@ public class CarRegistrationController implements IAppConfigService {
 			String title = "Kayıt Güncelleniyor";
 			String msg = "Dökümasyon No: " + dto.getDocumentNo() + " olan araç kaydını güncellemek istiyormusunuz?";
 
-			if (CarRegistrationControllerHelper.confirmationAlert(title, msg)) {
+			if (ControllerHelper.confirmationAlert(title, msg)) {
 				carRegistrationService.save(dto);
 			}
 		} else {

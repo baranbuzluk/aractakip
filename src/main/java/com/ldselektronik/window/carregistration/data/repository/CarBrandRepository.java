@@ -1,9 +1,9 @@
-package com.ldselektronik.application.carregistration.data.repository;
+package com.ldselektronik.window.carregistration.data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ldselektronik.application.carregistration.data.entity.CarBrandEntity;
+import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
 
 /**
  * @author Baran
