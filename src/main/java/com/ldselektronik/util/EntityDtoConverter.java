@@ -1,9 +1,9 @@
 package com.ldselektronik.util;
 
-import com.ldselektronik.application.carregistration.data.dto.CarBrandDto;
-import com.ldselektronik.application.carregistration.data.dto.CarRegistrationDto;
-import com.ldselektronik.application.carregistration.data.entity.CarBrandEntity;
-import com.ldselektronik.application.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.data.dto.CarBrandDto;
+import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
 
 /**
  * @author Baran

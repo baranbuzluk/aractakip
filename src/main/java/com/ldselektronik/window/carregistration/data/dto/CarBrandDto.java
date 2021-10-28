@@ -1,4 +1,4 @@
-package com.ldselektronik.application.carregistration.data.dto;
+package com.ldselektronik.window.carregistration.data.dto;
 
 /**
  *

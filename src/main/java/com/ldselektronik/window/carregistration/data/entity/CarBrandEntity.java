@@ -1,4 +1,4 @@
-package com.ldselektronik.application.carregistration.data.entity;
+package com.ldselektronik.window.carregistration.data.entity;
 
 import java.io.Serializable;
 import java.util.List;

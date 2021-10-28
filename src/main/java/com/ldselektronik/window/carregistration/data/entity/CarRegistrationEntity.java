@@ -1,31 +1,60 @@
-package com.ldselektronik.application.carregistration.data.dto;
+package com.ldselektronik.window.carregistration.data.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
+ * Araç kayıtlarının tutulacağı tablodur.
+ * 
  * @author Baran
  */
+@Entity(name = "car_registration")
+public class CarRegistrationEntity implements Serializable {
 
-public final class CarRegistrationDto {
+	private static final long serialVersionUID = -7151549754486256022L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
-
+	
 	private String surname;
-
+	
 	private String phone;
 
+	@Column(name = "company_name")
 	private String companyName;
 
+	@Column(name = "document_no")
 	private String documentNo;
 
+	@Column(name = "car_license")
 	private String carLicense;
 
+	@Column(name = "created_time")
+	@Temporal(TemporalType.DATE)
 	private Date createdTime;
 
-	private CarBrandDto carBrand;
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CarBrandEntity.class)
+	@JoinColumn(name = "fk_car_brand_id", insertable = true,updatable = true)
+	private CarBrandEntity carBrand;
+	
+	public CarRegistrationEntity() {
+		createdTime = new Date();
+	}
 
 	public int getId() {
 		return id;
@@ -83,30 +112,20 @@ public final class CarRegistrationDto {
 		this.carLicense = carLicense;
 	}
 
-	/**
-	 * @return <code>createdTime == null ? new Date() : createdTime</code>
-	 */
 	public Date getCreatedTime() {
-		return createdTime == null ? new Date() : createdTime;
+		return createdTime;
 	}
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
 
-	/**
-	 * @return <code>carBrand == null ? new CarBrandDTO () : carBrand</code>
-	 */
-	public CarBrandDto getCarBrand() {
-		return carBrand == null ? new CarBrandDto() : carBrand;
+	public CarBrandEntity getCarBrand() {
+		return carBrand;
 	}
 
-	public void setCarBrand(CarBrandDto carBrand) {
+	public void setCarBrand(CarBrandEntity carBrand) {
 		this.carBrand = carBrand;
-	}
-
-	public String getNameAndSurname() {
-		return this.name + " " + this.surname;
 	}
 
 }
