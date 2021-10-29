@@ -10,6 +10,18 @@ public class ProductCategoryDto {
 
 	private String name;
 
+	public ProductCategoryDto() {
+		
+	}
+	
+	
+	public ProductCategoryDto(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
+
 	public int getId() {
 		return id;
 	}

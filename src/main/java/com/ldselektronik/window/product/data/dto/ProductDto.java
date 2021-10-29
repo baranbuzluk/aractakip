@@ -1,6 +1,5 @@
 package com.ldselektronik.window.product.data.dto;
 
-import com.ldselektronik.window.product.data.entity.ProductCategory;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
 
@@ -14,7 +13,7 @@ public class ProductDto {
 
 	private String name;
 
-	private ProductCategory category;
+	private ProductCategoryDto category;
 
 	private Size size;
 
@@ -42,11 +41,11 @@ public class ProductDto {
 		this.name = name;
 	}
 
-	public ProductCategory getCategory() {
+	public ProductCategoryDto getCategory() {
 		return category;
 	}
 
-	public void setCategory(ProductCategory category) {
+	public void setCategory(ProductCategoryDto category) {
 		this.category = category;
 	}
 

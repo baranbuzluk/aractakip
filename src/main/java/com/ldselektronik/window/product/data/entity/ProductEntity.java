@@ -28,9 +28,9 @@ public class ProductEntity {
 
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductCategory.class)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductCategoryEntity.class)
 	@JoinColumn(name = "fk_product_category")
-	private ProductCategory category;
+	private ProductCategoryEntity category;
 
 	@Enumerated(EnumType.STRING)
 	private Size size;
@@ -62,11 +62,11 @@ public class ProductEntity {
 		this.name = name;
 	}
 
-	public ProductCategory getCategory() {
+	public ProductCategoryEntity getCategory() {
 		return category;
 	}
 
-	public void setCategory(ProductCategory category) {
+	public void setCategory(ProductCategoryEntity category) {
 		this.category = category;
 	}
 
