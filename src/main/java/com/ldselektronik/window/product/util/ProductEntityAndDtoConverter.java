@@ -5,6 +5,10 @@ import com.ldselektronik.window.product.data.dto.ProductDto;
 import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 
+/**
+ * @author Baran
+ *
+ */
 public final class ProductEntityAndDtoConverter {
 	private ProductEntityAndDtoConverter() {
 	}
