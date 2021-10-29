@@ -12,6 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.ldselektronik.window.product.data.enums.Color;
+import com.ldselektronik.window.product.data.enums.Size;
+
+/**
+ * @author Baran
+ *
+ */
 @Entity(name = "product")
 public class ProductEntity {
 
