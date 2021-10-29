@@ -1,16 +1,4 @@
-package com.ldselektronik.window.product.data.entity;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package com.ldselektronik.window.product.data.dto;
 
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
@@ -19,29 +7,20 @@ import com.ldselektronik.window.product.data.enums.Size;
  * @author Baran
  *
  */
-@Entity(name = "product")
-public class ProductEntity {
+public class ProductDto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductCategoryEntity.class)
-	@JoinColumn(name = "fk_product_category")
-	private ProductCategoryEntity category;
+	private ProductCategoryDto category;
 
-	@Enumerated(EnumType.STRING)
 	private Size size;
 
-	@Enumerated(EnumType.STRING)
 	private Color color;
 
-	@Column(name = "credit_price")
 	private int creditPrice;
 
-	@Column(name = "cash_price")
 	private int cashPrice;
 
 	private int year;
@@ -62,11 +41,11 @@ public class ProductEntity {
 		this.name = name;
 	}
 
-	public ProductCategoryEntity getCategory() {
+	public ProductCategoryDto getCategory() {
 		return category;
 	}
 
-	public void setCategory(ProductCategoryEntity category) {
+	public void setCategory(ProductCategoryDto category) {
 		this.category = category;
 	}
 
@@ -76,6 +55,7 @@ public class ProductEntity {
 
 	public void setSize(Size size) {
 		this.size = size;
+
 	}
 
 	public Color getColor() {
@@ -106,8 +86,17 @@ public class ProductEntity {
 		return year;
 	}
 
+	/**
+	 * @param year - it must be larger than zero
+	 * @throws IllegalArgumentException if <code>year</code> is smaller than zero
+	 */
 	public void setYear(int year) {
-		this.year = year;
+		if (year > 0) {
+			this.year = year;
+		} else {
+			throw new IllegalArgumentException("The year must not be smaller than zero");
+		}
+
 	}
 
 }

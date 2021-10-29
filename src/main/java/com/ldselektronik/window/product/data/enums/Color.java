@@ -1,5 +1,9 @@
-package com.ldselektronik.window.product.data.entity;
+package com.ldselektronik.window.product.data.enums;
 
+/**
+ * @author Baran
+ *
+ */
 public enum Color {
 
 	RED("Kırmızı"), GREEN("Yeşil"), BLUE("Mavi");

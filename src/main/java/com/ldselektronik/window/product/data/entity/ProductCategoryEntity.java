@@ -5,8 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * @author Baran
+ *
+ */
 @Entity(name = "product_category")
-public class ProductCategory {
+public class ProductCategoryEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
