@@ -12,8 +12,13 @@ import com.ldselektronik.window.product.data.entity.ProductEntity;
 public final class ProductEntityAndDtoConverter {
 	private ProductEntityAndDtoConverter() {
 	}
-
+	/**
+	 * @param from 
+	 * @return <code>ProductCategoryDto</code><br><code>null</code> - if param is null
+	 * */
 	public static ProductCategoryDto toProductCategoryDto(ProductCategoryEntity from) {
+		if (from == null)
+			return null;
 		return new ProductCategoryDto(from.getId(), from.getName());
 	}
 
