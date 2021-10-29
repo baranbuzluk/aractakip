@@ -49,43 +49,21 @@ public class ProductDto {
 		this.category = category;
 	}
 
-	public String getSize() {
-		return size.toString();
+	public Size getSize() {
+		return size;
 	}
 
-	/**
-	 * @param size must be a {@link Size} constant
-	 * */
-	public void setSize(String size) {
-		try {
-			this.size = Size.valueOf(size);
-		} catch (NullPointerException e) {
-			System.err.println("ERROR: Param is null.");
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("ERROR: Given param is not a enum constant.");
-			e.printStackTrace();
-		}
+	public void setSize(Size size) {
+		this.size = size;
 
 	}
 
-	public String getColor() {
-		return color.toString();
+	public Color getColor() {
+		return color;
 	}
-	/**
-	 * @param size must be a {@link Color} constant
-	 * */
-	public void setColor(String color) {
-		try {
-			this.color = Color.valueOf(color);
-		} catch (NullPointerException e) {
-			System.err.println("ERROR: Param is null.");
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("ERROR: Given param is not a enum constant.");
-			e.printStackTrace();
-		}
 
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 	public int getCreditPrice() {
