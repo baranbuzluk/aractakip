@@ -2,6 +2,7 @@ package com.ldselektronik.window.product.service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -60,10 +61,10 @@ public class ProductService {
 						.boxed()
 						.collect(Collectors.toList()));
 	}
-	
+
 	/**
-	 * If there is the object has same <code>documentNo</code> value in the table,
-	 * The object is not saved to the table but is updated.
+	 * If there is the object has same <code>id</code> value in the table, The
+	 * object is not saved to the table but is updated.
 	 * 
 	 */
 	public void save(ProductDto productDto) {
@@ -73,4 +74,18 @@ public class ProductService {
 		}
 		repository.save(ProductEntityAndDtoConverter.toProductEntity(productDto));
 	}
+	/**
+	 * @param id - primary key
+	 * @return ProductDto<br> <code>null</code> - if given id has not 
+	 * */
+	public ProductDto findById(int id) {
+		Optional<ProductEntity> optional = repository.findById(id);
+		if (optional.isPresent())
+		{
+			return ProductEntityAndDtoConverter.toProductDto(optional.get());
+		}
+		
+		return null;
+	}
+
 }

@@ -9,6 +9,8 @@ import com.ldselektronik.window.product.data.enums.Size;
 import com.ldselektronik.window.product.service.ProductCategoryService;
 import com.ldselektronik.window.product.service.ProductService;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -134,9 +136,11 @@ public class ProductController {
 
 		// Init Product Table
 		tableProduct.setItems(productService.getAllProductDto());
+		tableProduct.getSelectionModel().selectedIndexProperty().addListener(listenerSelectedTableRow);
 
 		// Init Button OnMouseClickedEvents
-		btnSave.setOnMouseClicked(btnSaveOnMouseClickedHandler);
+		btnSave.setOnMouseClicked(handlerBtnSave);
+		btnRefresh.setOnMouseClicked(handlerBtnRefresh);
 
 	}
 
@@ -156,6 +160,17 @@ public class ProductController {
 		return dto;
 	}
 
+	private void toFieldFromDto(ProductDto dto) {
+		fieldCashPrice.setText(String.valueOf(dto.getCashPrice()));
+		fieldCreditPrice.setText(String.valueOf(dto.getCreditPrice()));
+		fieldId.setText(String.valueOf(dto.getId()));
+		fieldName.setText(dto.getName());
+		cboxCategory.getSelectionModel().select(dto.getCategory());
+		cboxColor.getSelectionModel().select(dto.getColor());
+		cboxSize.getSelectionModel().select(dto.getSize());
+		cboxSize.getSelectionModel().select(dto.getYear());
+	}
+
 	private void clearFields() {
 		String empty = "";
 		fieldCashPrice.setText(empty);
@@ -168,10 +183,28 @@ public class ProductController {
 		cboxYear.getSelectionModel().selectLast();
 	}
 
-	private EventHandler<MouseEvent> btnSaveOnMouseClickedHandler = event -> {
+	private EventHandler<MouseEvent> handlerBtnSave = event -> {
 		productService.save(toDtoFromFields());
 		tableProduct.setItems(productService.getAllProductDto());
 		clearFields();
+	};
+
+	private EventHandler<MouseEvent> handlerBtnRefresh = event -> {
+		tableProduct.setItems(productService.getAllProductDto());
+		clearFields();
+	};
+
+	ChangeListener<Number> listenerSelectedTableRow = (ObservableValue<? extends Number> observable, Number oldValue,
+			Number newValue) -> {
+
+		ProductDto selected = tableProduct.getSelectionModel().getSelectedItem();
+		if (selected != null) { // when table row is select
+			toFieldFromDto(productService.findById(selected.getId()));
+
+		} else {
+			clearFields();
+		}
+
 	};
 
 }
