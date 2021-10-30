@@ -2,6 +2,8 @@ package com.ldselektronik.window.product.service;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -28,6 +30,9 @@ import javafx.collections.ObservableList;
 public class ProductService {
 	@Autowired
 	ProductRepository repository;
+	
+	@Autowired
+	Logger logger;
 
 	public ObservableList<ProductDto> getAllProductDto() {
 		List<ProductEntity> productEntityList = repository.findAll();
@@ -54,5 +59,18 @@ public class ProductService {
 						.range(startYear, nowYear + 1)
 						.boxed()
 						.collect(Collectors.toList()));
+	}
+	
+	/**
+	 * If there is the object has same <code>documentNo</code> value in the table,
+	 * The object is not saved to the table but is updated.
+	 * 
+	 */
+	public void save(ProductDto productDto) {
+		if (productDto == null) {
+			logger.log(Level.WARNING, "Error ProductDto object is null! - The object was not saved.");
+			return;
+		}
+		repository.save(ProductEntityAndDtoConverter.toProductEntity(productDto));
 	}
 }

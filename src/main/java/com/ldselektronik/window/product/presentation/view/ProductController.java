@@ -9,6 +9,7 @@ import com.ldselektronik.window.product.data.enums.Size;
 import com.ldselektronik.window.product.service.ProductCategoryService;
 import com.ldselektronik.window.product.service.ProductService;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -133,6 +135,43 @@ public class ProductController {
 		// Init Product Table
 		tableProduct.setItems(productService.getAllProductDto());
 
+		// Init Button OnMouseClickedEvents
+		btnSave.setOnMouseClicked(btnSaveOnMouseClickedHandler);
+
 	}
+
+	private ProductDto toDtoFromFields() {
+		ProductDto dto = new ProductDto();
+		int cash = !fieldCashPrice.getText().isEmpty() ? Integer.valueOf(fieldCashPrice.getText()) : 0;
+		dto.setCashPrice(cash);
+		dto.setCategory(cboxCategory.getSelectionModel().getSelectedItem());
+		dto.setColor(cboxColor.getSelectionModel().getSelectedItem());
+		int credit = !fieldCreditPrice.getText().isEmpty() ? Integer.valueOf(fieldCreditPrice.getText()) : 0;
+		dto.setCreditPrice(credit);
+		int id = !fieldId.getText().isEmpty() ? Integer.valueOf(fieldId.getText()) : 0;
+		dto.setId(id);
+		dto.setName(fieldName.getText());
+		dto.setSize(cboxSize.getSelectionModel().getSelectedItem());
+		dto.setYear(cboxYear.getSelectionModel().getSelectedItem());
+		return dto;
+	}
+
+	private void clearFields() {
+		String empty = "";
+		fieldCashPrice.setText(empty);
+		fieldCreditPrice.setText(empty);
+		fieldId.setText(empty);
+		fieldName.setText(empty);
+		cboxCategory.getSelectionModel().selectFirst();
+		cboxColor.getSelectionModel().selectFirst();
+		cboxSize.getSelectionModel().selectFirst();
+		cboxYear.getSelectionModel().selectLast();
+	}
+
+	private EventHandler<MouseEvent> btnSaveOnMouseClickedHandler = event -> {
+		productService.save(toDtoFromFields());
+		tableProduct.setItems(productService.getAllProductDto());
+		clearFields();
+	};
 
 }

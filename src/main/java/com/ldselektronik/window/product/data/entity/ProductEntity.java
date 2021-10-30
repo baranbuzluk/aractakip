@@ -1,6 +1,5 @@
 package com.ldselektronik.window.product.data.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +27,7 @@ public class ProductEntity {
 
 	private String name;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = ProductCategoryEntity.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProductCategoryEntity.class)
 	@JoinColumn(name = "fk_product_category")
 	private ProductCategoryEntity category;
 
