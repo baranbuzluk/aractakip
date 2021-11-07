@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 
 import com.ldselektronik.application.abstracts.IWindow;
-import com.ldselektronik.window.product.presentation.window.ProductWindow;
+import com.ldselektronik.window.main.window.MainWindow;
 
 /**
  * @author Baran
@@ -36,7 +36,7 @@ public class SpringApplicationContext implements ApplicationContextAware {
 
 	@Bean(value = "MainWindow")
 	public IWindow getMainWindow() {
-		return new ProductWindow();
+		return new MainWindow();
 	}
 
 	@Override
