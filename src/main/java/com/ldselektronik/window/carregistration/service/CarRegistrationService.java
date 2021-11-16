@@ -27,7 +27,7 @@ import javafx.collections.ObservableList;
  * @author Baran
  *
  */
-@Service
+@Service(value = "carRegistrationService")
 @Transactional
 public class CarRegistrationService {
 

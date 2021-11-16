@@ -23,20 +23,20 @@ import javafx.collections.ObservableList;
  * @author Baran
  *
  */
-@Service
+@Service(value = "carBrandService")
 @Transactional
 public class CarBrandService {
 
 	@Autowired
 	private CarBrandRepository repository;
-	
+
 	@Autowired
 	private Logger logger;
 
 	public ObservableList<CarBrandDto> getAll() {
 		List<CarBrandEntity> brandList = repository.findAll();
 		// Converts CarBrand object to CarBrandDTO object
-		List<CarBrandDto> brandDTOList = brandList.stream().map(brand -> EntityDtoConverter.toCarBrandDTO(brand)) 
+		List<CarBrandDto> brandDTOList = brandList.stream().map(brand -> EntityDtoConverter.toCarBrandDTO(brand))
 				.collect(Collectors.toList());
 		return FXCollections.observableArrayList(brandDTOList);
 	}
