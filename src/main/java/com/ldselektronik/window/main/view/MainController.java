@@ -1,6 +1,8 @@
 package com.ldselektronik.window.main.view;
 
+import com.ldselektronik.configuration.SpringApplicationContext;
 import com.ldselektronik.util.ControllerHelper;
+import com.ldselektronik.window.carregistration.presentation.window.CarRegistrationWindow;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -20,6 +22,10 @@ public class MainController {
 
 	public MainController() {
 		ControllerHelper.loadFxml(this, "main.fxml");
+		CarRegistrationWindow carRegistrationWindow = SpringApplicationContext.getBean(CarRegistrationWindow.class);
+
+		pane.getChildren().add(carRegistrationWindow.getPane());
+
 	}
 
 	public MenuBar getMenuBar() {
