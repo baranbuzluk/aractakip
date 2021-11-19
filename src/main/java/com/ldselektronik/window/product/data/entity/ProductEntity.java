@@ -105,8 +105,17 @@ public class ProductEntity {
 		return year;
 	}
 
+	/**
+	 * @param year - it must be larger than zero
+	 * @throws IllegalArgumentException if <code>year</code> is smaller than zero
+	 */
 	public void setYear(int year) {
-		this.year = year;
+		if (year > 0) {
+			this.year = year;
+		} else {
+			throw new IllegalArgumentException("The year must not be smaller than zero");
+		}
+
 	}
 
 }

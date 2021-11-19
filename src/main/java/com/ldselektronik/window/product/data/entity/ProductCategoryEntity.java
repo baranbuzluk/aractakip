@@ -11,11 +11,11 @@ import javax.persistence.Id;
  */
 @Entity(name = "product_category")
 public class ProductCategoryEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
 
 	public int getId() {
@@ -33,6 +33,10 @@ public class ProductCategoryEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }
