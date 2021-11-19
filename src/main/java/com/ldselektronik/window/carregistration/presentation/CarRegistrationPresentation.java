@@ -1,4 +1,4 @@
-package com.ldselektronik.window.carregistration.presentation.window;
+package com.ldselektronik.window.carregistration.presentation;
 
 import javax.annotation.PostConstruct;
 
@@ -7,12 +7,13 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import com.ldselektronik.application.abstracts.IWindow;
-import com.ldselektronik.window.carregistration.data.dto.CarBrandDto;
-import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
 import com.ldselektronik.window.carregistration.presentation.view.CarRegistrationController;
 import com.ldselektronik.window.carregistration.service.CarBrandService;
 import com.ldselektronik.window.carregistration.service.CarRegistrationService;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
 
@@ -22,7 +23,7 @@ import javafx.scene.layout.Pane;
  */
 @Component
 @DependsOn({ "carRegistrationService", "carBrandService" })
-public class CarRegistrationWindow implements IWindow {
+public class CarRegistrationPresentation implements IWindow {
 
 	@Autowired
 	private CarBrandService carBrandService;
@@ -32,13 +33,13 @@ public class CarRegistrationWindow implements IWindow {
 
 	private CarRegistrationController controller;
 
-	public CarRegistrationWindow() {
+	public CarRegistrationPresentation() {
 		controller = new CarRegistrationController(this);
 	}
 
 	@PostConstruct
 	public void init() {
-		controller.loadControllerObjectDatas();
+		controller.loadControllerObjectDatasFromService();
 	}
 
 	@Override
@@ -46,24 +47,24 @@ public class CarRegistrationWindow implements IWindow {
 		return controller.getRootPane();
 	}
 
-	public ObservableList<CarBrandDto> getAllCarBrand() {
-		return carBrandService.getAll();
+	public ObservableList<CarBrandEntity> getAllCarBrands() {
+		return FXCollections.observableArrayList(carBrandService.getAllCarBrands());
 	}
 
-	public ObservableList<CarRegistrationDto> getAllCarRegistration() {
-		return carRegistrationService.getAll();
+	public ObservableList<CarRegistrationEntity> getAllCarRegistrations() {
+		return FXCollections.observableArrayList(carRegistrationService.getAllCarRegistrations());
 	}
 
-	public ObservableList<CarRegistrationDto> searchCarRegistration(CarRegistrationDto registration) {
-		return carRegistrationService.searchCarRegistration(registration);
+	public ObservableList<CarRegistrationEntity> searchCarRegistration(CarRegistrationEntity registration) {
+		return FXCollections.observableArrayList(carRegistrationService.searchCarRegistration(registration));
 	}
 
-	public CarRegistrationDto findCarRegistrationById(int id) {
+	public CarRegistrationEntity findCarRegistrationById(int id) {
 		return carRegistrationService.findById(id);
 	}
 
-	public void saveCarRegistration(CarRegistrationDto carRegistrationDto) {
-		carRegistrationService.save(carRegistrationDto);
+	public void saveCarRegistration(CarRegistrationEntity entity) {
+		carRegistrationService.save(entity);
 	}
 
 	public boolean existsByDocumentNo(String documentNo) {

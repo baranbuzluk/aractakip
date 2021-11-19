@@ -1,89 +1,78 @@
 package com.ldselektronik.window.carregistration.presentation.view;
 
-import com.ldselektronik.util.ControllerHelper;
-import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
-import com.ldselektronik.window.carregistration.presentation.window.CarRegistrationWindow;
+import com.ldselektronik.util.JavaFxHelper;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.presentation.CarRegistrationPresentation;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class CarRegistrationController extends BaseCarRegistrationController {
 
-	private CarRegistrationWindow window;
-
-	public CarRegistrationController(CarRegistrationWindow window) {
-		this.window = window;
-		initialize();
+	public CarRegistrationController(CarRegistrationPresentation presentation) {
+		super(presentation);
+		init();
 	}
 
-	public void loadControllerObjectDatas() {
-		tableRegistration.setItems(window.getAllCarRegistration());
-		cboxBrand.setItems(window.getAllCarBrand());
-		cboxBrand.getSelectionModel().selectFirst();
+	public void loadControllerObjectDatasFromService() {
+		clearAndRefreshAllFields();
 	}
 
-	private void initialize() {
+	private void init() {
 		btnRegister.setOnMouseClicked(btnRegisterOnMouseClicked);
 		btnRefresh.setOnMouseClicked(btnRefreshOnMouseClicked);
 		btnDelete.setOnMouseClicked(btnDeleteOnMouseClicked);
 		btnSearch.setOnMouseClicked(btnSearchOnMouseClicked);
-		tableRegistration.getSelectionModel().selectedIndexProperty().addListener(selectedTableRow);
+		tableRegistration.getSelectionModel().selectedItemProperty().addListener(selectedTableRow);
 	}
 
 	private EventHandler<MouseEvent> btnDeleteOnMouseClicked = e -> {
-		if (ControllerHelper.confirmationAlert("Silme işlemi yapılıyor",
-				"Bu işlem geri alınamaz.\nKayıt silinsin mi ?")) {
-			window.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
-			tableRegistration.setItems(window.getAllCarRegistration());
-			clearFields();
+
+		String title = "Silme işlemi yapılıyor";
+		String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
+
+		if (JavaFxHelper.confirmationMessage(title, message)) {
+			presentation.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
+			clearAndRefreshAllFields();
 		}
-
 	};
 
-	private EventHandler<MouseEvent> btnRefreshOnMouseClicked = e -> {
-		tableRegistration.setItems(window.getAllCarRegistration());
-		clearFields();
-	};
+	private EventHandler<MouseEvent> btnRefreshOnMouseClicked = e -> clearAndRefreshAllFields();
 
 	private EventHandler<MouseEvent> btnRegisterOnMouseClicked = e -> {
-		CarRegistrationDto dto = toDtoFromFields();
+		CarRegistrationEntity entity = toEntityFromFields();
 
-		if (window.existsByDocumentNo(dto.getDocumentNo())) {
-			String title = "Kayıt Güncelleniyor";
-			String msg = "Dökümasyon No: " + dto.getDocumentNo() + " olan araç kaydını güncellemek istiyormusunuz?";
-
-			if (ControllerHelper.confirmationAlert(title, msg)) {
-				window.saveCarRegistration(dto);
-			}
-		} else {
-			window.saveCarRegistration(dto);
+		if (!presentation.existsByDocumentNo(entity.getDocumentNo())) {
+			presentation.saveCarRegistration(entity);
+			clearAndRefreshAllFields();
+			return;
 		}
 
-		tableRegistration.setItems(window.getAllCarRegistration());
+		String title = "Kayıt Güncelleniyor";
+		String message = "Dökümasyon No: " + entity.getDocumentNo() + " olan araç kaydını güncellemek istiyormusunuz?";
+		if (JavaFxHelper.confirmationMessage(title, message)) {
+			presentation.saveCarRegistration(entity);
+			clearAndRefreshAllFields();
+		}
+
 	};
 
 	private EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
-		tableRegistration.setItems(window.searchCarRegistration(toDtoFromFields()));
+		tableRegistration.setItems(presentation.searchCarRegistration(toEntityFromFields()));
 	};
 
-	private ChangeListener<Number> selectedTableRow = (ObservableValue<? extends Number> observable, Number oldValue,
-			Number newValue) -> {
+	private ChangeListener<CarRegistrationEntity> selectedTableRow = (observable, oldValue, newValue) -> {
 
-		CarRegistrationDto selected = tableRegistration.getSelectionModel().getSelectedItem();
-
-		if (selected != null) { // when table row is select
-			toFieldFromDto(window.findCarRegistrationById(selected.getId()));
+		if (newValue != null) { // when table row is select
+			toFieldFromEntity(newValue);
 			btnDelete.setDisable(false);
-			fieldCarLicense.setDisable(true);
-
+			fieldDocumentNo.setDisable(true);
 		} else {
-			clearFields();
 			btnDelete.setDisable(true);
 			fieldDocumentNo.setDisable(false);
+			clearAndRefreshAllFields();
 		}
 
 	};
-
 }

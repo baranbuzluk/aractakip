@@ -30,9 +30,9 @@ public class CarRegistrationEntity implements Serializable {
 	private int id;
 
 	private String name;
-	
+
 	private String surname;
-	
+
 	private String phone;
 
 	@Column(name = "company_name")
@@ -49,9 +49,9 @@ public class CarRegistrationEntity implements Serializable {
 	private Date createdTime;
 
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CarBrandEntity.class)
-	@JoinColumn(name = "fk_car_brand_id", insertable = true,updatable = true)
+	@JoinColumn(name = "fk_car_brand_id", insertable = true, updatable = true)
 	private CarBrandEntity carBrand;
-	
+
 	public CarRegistrationEntity() {
 		createdTime = new Date();
 	}
@@ -126,6 +126,10 @@ public class CarRegistrationEntity implements Serializable {
 
 	public void setCarBrand(CarBrandEntity carBrand) {
 		this.carBrand = carBrand;
+	}
+
+	public String getNameAndSurname() {
+		return name + " " + surname;
 	}
 
 }

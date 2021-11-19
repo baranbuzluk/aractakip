@@ -1,13 +1,11 @@
 package com.ldselektronik.window.carregistration.data.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,9 +24,6 @@ public class CarBrandEntity implements Serializable {
 
 	private String name;
 
-	@OneToMany(mappedBy = "carBrand",targetEntity = CarRegistrationEntity.class)
-	private List<CarRegistrationEntity> carRegistrationList;
-
 	public int getId() {
 		return id;
 	}
@@ -45,7 +40,9 @@ public class CarBrandEntity implements Serializable {
 		this.name = name;
 	}
 
-	public List<CarRegistrationEntity> getCarRegistrationList() {
-		return carRegistrationList;
+	@Override
+	public String toString() {
+		return name;
 	}
+
 }

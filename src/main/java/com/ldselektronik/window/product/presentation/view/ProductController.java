@@ -1,7 +1,7 @@
 package com.ldselektronik.window.product.presentation.view;
 
 import com.ldselektronik.configuration.SpringApplicationContext;
-import com.ldselektronik.util.ControllerHelper;
+import com.ldselektronik.util.JavaFxHelper;
 import com.ldselektronik.window.product.data.dto.ProductCategoryDto;
 import com.ldselektronik.window.product.data.dto.ProductDto;
 import com.ldselektronik.window.product.data.enums.Color;
@@ -97,7 +97,7 @@ public class ProductController {
 	private ProductService productService;
 
 	public ProductController() {
-		ControllerHelper.loadFxml(this, "product.fxml");
+		JavaFxHelper.loadFxml(this, "product.fxml");
 		productCategoryService = SpringApplicationContext.getBean(ProductCategoryService.class);
 		productService = SpringApplicationContext.getBean(ProductService.class);
 		init();

@@ -1,8 +1,8 @@
 package com.ldselektronik.window.main.view;
 
 import com.ldselektronik.configuration.SpringApplicationContext;
-import com.ldselektronik.util.ControllerHelper;
-import com.ldselektronik.window.carregistration.presentation.window.CarRegistrationWindow;
+import com.ldselektronik.util.JavaFxHelper;
+import com.ldselektronik.window.carregistration.presentation.CarRegistrationPresentation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;
@@ -21,8 +21,8 @@ public class MainController {
 	private AnchorPane rootPane;
 
 	public MainController() {
-		ControllerHelper.loadFxml(this, "main.fxml");
-		CarRegistrationWindow carRegistrationWindow = SpringApplicationContext.getBean(CarRegistrationWindow.class);
+		JavaFxHelper.loadFxml(this, "main.fxml");
+		CarRegistrationPresentation carRegistrationWindow = SpringApplicationContext.getBean(CarRegistrationPresentation.class);
 
 		pane.getChildren().add(carRegistrationWindow.getPane());
 

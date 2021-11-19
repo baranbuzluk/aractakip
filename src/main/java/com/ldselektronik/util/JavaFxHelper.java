@@ -12,9 +12,9 @@ import javafx.scene.control.ButtonType;
  * @author Baran
  *
  */
-public final class ControllerHelper {
+public final class JavaFxHelper {
 
-	private ControllerHelper() {
+	private JavaFxHelper() {
 
 	}
 
@@ -36,7 +36,7 @@ public final class ControllerHelper {
 	 *         <code>false</code> - Other cases
 	 *
 	 */
-	public static boolean confirmationAlert(String title, String msg) {
+	public static boolean confirmationMessage(String title, String msg) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle(title);
 		alert.setHeaderText(msg);

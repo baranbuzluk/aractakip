@@ -2,9 +2,10 @@ package com.ldselektronik.window.carregistration.presentation.view;
 
 import java.util.Date;
 
-import com.ldselektronik.util.ControllerHelper;
-import com.ldselektronik.window.carregistration.data.dto.CarBrandDto;
-import com.ldselektronik.window.carregistration.data.dto.CarRegistrationDto;
+import com.ldselektronik.util.JavaFxHelper;
+import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
+import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.presentation.CarRegistrationPresentation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ import javafx.scene.layout.Pane;
 public class BaseCarRegistrationController {
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, String> columnLicense;
+	protected TableColumn<CarRegistrationEntity, String> columnLicense;
 
 	@FXML
 	protected TextField fieldName;
@@ -32,22 +33,22 @@ public class BaseCarRegistrationController {
 	protected Button btnSearch;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, String> columnCompany;
+	protected TableColumn<CarRegistrationEntity, String> columnCompany;
 
 	@FXML
-	protected ComboBox<CarBrandDto> cboxBrand;
+	protected ComboBox<CarBrandEntity> cboxBrand;
 
 	@FXML
 	protected AnchorPane rootPane;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, Integer> columnId;
+	protected TableColumn<CarRegistrationEntity, Integer> columnId;
 
 	@FXML
 	protected TextField fieldSurname;
 
 	@FXML
-	protected TableView<CarRegistrationDto> tableRegistration;
+	protected TableView<CarRegistrationEntity> tableRegistration;
 
 	@FXML
 	protected TextField fieldDate;
@@ -65,7 +66,7 @@ public class BaseCarRegistrationController {
 	protected Button btnRefresh;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, CarBrandDto> columnBrand;
+	protected TableColumn<CarRegistrationEntity, CarBrandEntity> columnBrand;
 
 	@FXML
 	protected Button btnDelete;
@@ -74,22 +75,25 @@ public class BaseCarRegistrationController {
 	protected TextField fieldCarLicense;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, String> columnDocumentNo;
+	protected TableColumn<CarRegistrationEntity, String> columnDocumentNo;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, Date> columnDate;
+	protected TableColumn<CarRegistrationEntity, Date> columnDate;
 
 	@FXML
 	protected TextField fieldPhone;
 
 	@FXML
-	protected TableColumn<CarRegistrationDto, String> columnName;
+	protected TableColumn<CarRegistrationEntity, String> columnName;
 
 	@FXML
 	protected TextField fieldId;
 
-	public BaseCarRegistrationController() {
-		ControllerHelper.loadFxml(this, "car_registration.fxml");
+	protected CarRegistrationPresentation presentation;
+
+	public BaseCarRegistrationController(CarRegistrationPresentation presentation) {
+		this.presentation = presentation;
+		JavaFxHelper.loadFxml(this, "car_registration.fxml");
 		initTableColumn();
 	}
 
@@ -107,32 +111,33 @@ public class BaseCarRegistrationController {
 		columnName.setCellValueFactory(new PropertyValueFactory<>("nameAndSurname"));
 	}
 
-	public CarRegistrationDto toDtoFromFields() {
-		CarRegistrationDto dto = new CarRegistrationDto();
-		dto.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
-		dto.setCarLicense(fieldCarLicense.getText());
-		dto.setCompanyName(fieldCompanyName.getText());
-		dto.setDocumentNo(fieldDocumentNo.getText());
-		dto.setName(fieldName.getText());
-		dto.setPhone(fieldPhone.getText());
-		dto.setSurname(fieldSurname.getText());
-		dto.setId(!fieldId.getText().isEmpty() ? Integer.valueOf(fieldId.getText()) : 0);
-		return dto;
+	public CarRegistrationEntity toEntityFromFields() {
+		CarRegistrationEntity entity = new CarRegistrationEntity();
+		entity.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
+		entity.setCarLicense(fieldCarLicense.getText());
+		entity.setCompanyName(fieldCompanyName.getText());
+		entity.setDocumentNo(fieldDocumentNo.getText());
+		entity.setName(fieldName.getText());
+		entity.setPhone(fieldPhone.getText());
+		entity.setSurname(fieldSurname.getText());
+		entity.setId(!fieldId.getText().isEmpty() ? Integer.valueOf(fieldId.getText()) : 0);
+		return entity;
 	}
 
-	public void toFieldFromDto(CarRegistrationDto dto) {
-		fieldCarLicense.setText(dto.getCarLicense());
-		fieldCompanyName.setText(dto.getCompanyName());
-		fieldDate.setText(dto.getCreatedTime().toString());
-		fieldDocumentNo.setText(dto.getDocumentNo());
-		fieldId.setText(String.valueOf(dto.getId()));
-		fieldName.setText(dto.getName());
-		fieldPhone.setText(dto.getPhone());
-		fieldSurname.setText(dto.getSurname());
-		cboxBrand.getSelectionModel().select(dto.getCarBrand());
+	public void toFieldFromEntity(CarRegistrationEntity entity) {
+
+		fieldCarLicense.setText(entity.getCarLicense());
+		fieldCompanyName.setText(entity.getCompanyName());
+		fieldDate.setText(entity.getCreatedTime().toString());
+		fieldDocumentNo.setText(entity.getDocumentNo());
+		fieldId.setText(String.valueOf(entity.getId()));
+		fieldName.setText(entity.getName());
+		fieldPhone.setText(entity.getPhone());
+		fieldSurname.setText(entity.getSurname());
+		cboxBrand.getSelectionModel().select(entity.getCarBrand());
 	}
 
-	public void clearFields() {
+	public void clearAndRefreshAllFields() {
 		String empty = "";
 		fieldCarLicense.setText(empty);
 		fieldCompanyName.setText(empty);
@@ -142,7 +147,10 @@ public class BaseCarRegistrationController {
 		fieldName.setText(empty);
 		fieldPhone.setText(empty);
 		fieldSurname.setText(empty);
+		cboxBrand.setItems(presentation.getAllCarBrands());
 		cboxBrand.getSelectionModel().selectFirst();
+		tableRegistration.setItems(presentation.getAllCarRegistrations());
+
 	}
 
 }
