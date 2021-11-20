@@ -7,9 +7,11 @@ import java.util.stream.IntStream;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.ldselektronik.application.abstracts.IWindow;
+import com.ldselektronik.abstracts.ITabWindow;
+import com.ldselektronik.enums.TabWindowOrder;
 import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 import com.ldselektronik.window.product.data.enums.Color;
@@ -27,7 +29,10 @@ import javafx.scene.layout.StackPane;
  *
  */
 @Component
-public class ProductPresentation implements IWindow {
+@Order(TabWindowOrder.PRODUCT_ORDER)
+public class ProductWindow implements ITabWindow {
+
+	private static final String TAB_NAME = "Ürünler";
 
 	@Autowired
 	private ProductService productService;
@@ -42,8 +47,14 @@ public class ProductPresentation implements IWindow {
 		controller = new ProductController(this);
 	}
 
+	@Override
 	public StackPane getPane() {
 		return controller.getPane();
+	}
+
+	@Override
+	public String getTabName() {
+		return TAB_NAME;
 	}
 
 	public ObservableList<Color> getColorList() {

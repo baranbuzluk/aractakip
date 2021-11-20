@@ -1,7 +1,7 @@
 package com.ldselektronik.window.product.view;
 
 import com.ldselektronik.window.product.data.entity.ProductEntity;
-import com.ldselektronik.window.product.presentation.ProductPresentation;
+import com.ldselektronik.window.product.presentation.ProductWindow;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
  */
 public final class ProductController extends BaseProductController {
 
-	public ProductController(ProductPresentation presentation) {
+	public ProductController(ProductWindow presentation) {
 		super(presentation);
 		init();
 		clearAndRefreshFields();

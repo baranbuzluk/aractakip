@@ -5,7 +5,7 @@ import java.util.Date;
 import com.ldselektronik.util.JavaFxHelper;
 import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.window.carregistration.presentation.CarRegistrationPresentation;
+import com.ldselektronik.window.carregistration.presentation.CarRegistrationWindow;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -89,9 +89,9 @@ public class BaseCarRegistrationController {
 	@FXML
 	protected TextField fieldId;
 
-	protected CarRegistrationPresentation presentation;
+	protected CarRegistrationWindow presentation;
 
-	public BaseCarRegistrationController(CarRegistrationPresentation presentation) {
+	public BaseCarRegistrationController(CarRegistrationWindow presentation) {
 		this.presentation = presentation;
 		JavaFxHelper.loadFxml(this, "car_registration.fxml");
 		initTable();

@@ -5,7 +5,7 @@ import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
-import com.ldselektronik.window.product.presentation.ProductPresentation;
+import com.ldselektronik.window.product.presentation.ProductWindow;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -85,9 +85,9 @@ public class BaseProductController {
 	@FXML
 	protected TableColumn<ProductEntity, Color> columnColor;
 
-	protected ProductPresentation presentation;
+	protected ProductWindow presentation;
 
-	public BaseProductController(ProductPresentation presentation) {
+	public BaseProductController(ProductWindow presentation) {
 		this.presentation = presentation;
 		JavaFxHelper.loadFxml(this, "product.fxml");
 		initTableColumns();

@@ -4,9 +4,11 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import com.ldselektronik.application.abstracts.IWindow;
+import com.ldselektronik.abstracts.ITabWindow;
+import com.ldselektronik.enums.TabWindowOrder;
 import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
 import com.ldselektronik.window.carregistration.service.CarBrandService;
@@ -22,8 +24,11 @@ import javafx.scene.layout.StackPane;
  *
  */
 @Component
+@Order(TabWindowOrder.CAR_REGISTRATION_ORDER)
 @DependsOn({ "carRegistrationService", "carBrandService" })
-public class CarRegistrationPresentation implements IWindow {
+public class CarRegistrationWindow implements ITabWindow {
+
+	private static final String TAB_NAME = "Araç Takip";
 
 	@Autowired
 	private CarBrandService carBrandService;
@@ -69,5 +74,10 @@ public class CarRegistrationPresentation implements IWindow {
 
 	public void deleteById(int id) {
 		carRegistrationService.deleteById(id);
+	}
+
+	@Override
+	public String getTabName() {
+		return TAB_NAME;
 	}
 }

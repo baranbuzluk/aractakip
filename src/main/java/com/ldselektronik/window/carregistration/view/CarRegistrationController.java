@@ -2,7 +2,7 @@ package com.ldselektronik.window.carregistration.view;
 
 import com.ldselektronik.util.JavaFxHelper;
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.window.carregistration.presentation.CarRegistrationPresentation;
+import com.ldselektronik.window.carregistration.presentation.CarRegistrationWindow;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 public class CarRegistrationController extends BaseCarRegistrationController {
 
-	public CarRegistrationController(CarRegistrationPresentation presentation) {
+	public CarRegistrationController(CarRegistrationWindow presentation) {
 		super(presentation);
 		init();
 		clearAndRefreshAllFields();
