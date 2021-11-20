@@ -1,4 +1,4 @@
-package com.ldselektronik.window.carregistration.presentation.view;
+package com.ldselektronik.window.carregistration.view;
 
 import com.ldselektronik.util.JavaFxHelper;
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
@@ -13,13 +13,10 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 	public CarRegistrationController(CarRegistrationPresentation presentation) {
 		super(presentation);
 		init();
-	}
-
-	public void loadControllerObjectDatasFromService() {
 		clearAndRefreshAllFields();
 	}
 
-	private void init() {
+	void init() {
 		btnRegister.setOnMouseClicked(btnRegisterOnMouseClicked);
 		btnRefresh.setOnMouseClicked(btnRefreshOnMouseClicked);
 		btnDelete.setOnMouseClicked(btnDeleteOnMouseClicked);
@@ -27,7 +24,7 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 		tableRegistration.getSelectionModel().selectedItemProperty().addListener(selectedTableRow);
 	}
 
-	private EventHandler<MouseEvent> btnDeleteOnMouseClicked = e -> {
+	EventHandler<MouseEvent> btnDeleteOnMouseClicked = e -> {
 
 		String title = "Silme işlemi yapılıyor";
 		String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
@@ -38,9 +35,9 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 		}
 	};
 
-	private EventHandler<MouseEvent> btnRefreshOnMouseClicked = e -> clearAndRefreshAllFields();
+	EventHandler<MouseEvent> btnRefreshOnMouseClicked = e -> clearAndRefreshAllFields();
 
-	private EventHandler<MouseEvent> btnRegisterOnMouseClicked = e -> {
+	EventHandler<MouseEvent> btnRegisterOnMouseClicked = e -> {
 		CarRegistrationEntity entity = toEntityFromFields();
 
 		if (!presentation.existsByDocumentNo(entity.getDocumentNo())) {
@@ -58,11 +55,11 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 
 	};
 
-	private EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
+	EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
 		tableRegistration.setItems(presentation.searchCarRegistration(toEntityFromFields()));
 	};
 
-	private ChangeListener<CarRegistrationEntity> selectedTableRow = (observable, oldValue, newValue) -> {
+	ChangeListener<CarRegistrationEntity> selectedTableRow = (observable, oldValue, newValue) -> {
 
 		if (newValue != null) { // when table row is select
 			toFieldFromEntity(newValue);

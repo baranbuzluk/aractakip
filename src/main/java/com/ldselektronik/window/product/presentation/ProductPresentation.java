@@ -14,9 +14,9 @@ import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
-import com.ldselektronik.window.product.presentation.view.ProductController;
 import com.ldselektronik.window.product.service.ProductCategoryService;
 import com.ldselektronik.window.product.service.ProductService;
+import com.ldselektronik.window.product.view.ProductController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,11 +37,8 @@ public class ProductPresentation implements IWindow {
 
 	private ProductController controller;
 
-	public ProductPresentation() {
-	}
-
 	@PostConstruct
-	public void init() {
+	void init() {
 		controller = new ProductController(this);
 	}
 

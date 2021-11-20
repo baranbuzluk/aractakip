@@ -1,4 +1,4 @@
-package com.ldselektronik.window.product.presentation.view;
+package com.ldselektronik.window.product.view;
 
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 import com.ldselektronik.window.product.presentation.ProductPresentation;

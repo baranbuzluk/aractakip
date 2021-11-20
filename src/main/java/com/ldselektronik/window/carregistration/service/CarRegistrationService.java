@@ -15,7 +15,7 @@ import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.stereotype.Service;
 
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.window.carregistration.data.repository.CarRegistrationRepository;
+import com.ldselektronik.window.carregistration.repository.CarRegistrationRepository;
 
 /**
  * @author Baran

@@ -1,4 +1,4 @@
-package com.ldselektronik.window.carregistration.data.repository;
+package com.ldselektronik.window.carregistration.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

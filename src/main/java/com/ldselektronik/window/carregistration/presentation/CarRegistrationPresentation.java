@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import com.ldselektronik.application.abstracts.IWindow;
 import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
 import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
-import com.ldselektronik.window.carregistration.presentation.view.CarRegistrationController;
 import com.ldselektronik.window.carregistration.service.CarBrandService;
 import com.ldselektronik.window.carregistration.service.CarRegistrationService;
+import com.ldselektronik.window.carregistration.view.CarRegistrationController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,13 +33,9 @@ public class CarRegistrationPresentation implements IWindow {
 
 	private CarRegistrationController controller;
 
-	public CarRegistrationPresentation() {
-		controller = new CarRegistrationController(this);
-	}
-
 	@PostConstruct
-	public void init() {
-		controller.loadControllerObjectDatasFromService();
+	void init() {
+		controller = new CarRegistrationController(this);
 	}
 
 	@Override

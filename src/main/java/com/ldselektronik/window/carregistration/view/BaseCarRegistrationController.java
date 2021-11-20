@@ -1,4 +1,4 @@
-package com.ldselektronik.window.carregistration.presentation.view;
+package com.ldselektronik.window.carregistration.view;
 
 import java.util.Date;
 

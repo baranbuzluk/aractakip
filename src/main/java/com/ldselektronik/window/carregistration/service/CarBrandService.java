@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
-import com.ldselektronik.window.carregistration.data.repository.CarBrandRepository;
+import com.ldselektronik.window.carregistration.repository.CarBrandRepository;
 
 /**
  * 
