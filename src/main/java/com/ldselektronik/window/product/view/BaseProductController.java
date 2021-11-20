@@ -14,8 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Baran
@@ -24,7 +23,7 @@ import javafx.scene.layout.Pane;
 public class BaseProductController {
 
 	@FXML
-	protected AnchorPane paneRoot;
+	protected StackPane rootPane;
 
 	@FXML
 	protected ComboBox<Integer> cboxYear;
@@ -75,7 +74,7 @@ public class BaseProductController {
 	protected TextField fieldCreditPrice;
 
 	@FXML
-	protected TableView<ProductEntity> tableProduct;
+	protected TableView<ProductEntity> tableProductEntities;
 
 	@FXML
 	protected TextField fieldId;
@@ -94,8 +93,8 @@ public class BaseProductController {
 		initTableColumns();
 	}
 
-	public Pane getPane() {
-		return paneRoot;
+	public StackPane getPane() {
+		return rootPane;
 	}
 
 	private void initTableColumns() {
@@ -141,7 +140,7 @@ public class BaseProductController {
 		fieldId.setText(empty);
 		fieldName.setText(empty);
 		// Refresh Product TableView
-		tableProduct.setItems(presentation.getAllProductEntity());
+		tableProductEntities.setItems(presentation.getAllProductEntity());
 		// Refresh ProductCategory Combobox
 		cboxCategory.setItems(presentation.getAllProductCategories());
 		cboxCategory.getSelectionModel().selectFirst();

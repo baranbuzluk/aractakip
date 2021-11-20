@@ -10,12 +10,12 @@ import com.ldselektronik.window.carregistration.presentation.CarRegistrationPres
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Baran
@@ -39,7 +39,7 @@ public class BaseCarRegistrationController {
 	protected ComboBox<CarBrandEntity> cboxBrand;
 
 	@FXML
-	protected AnchorPane rootPane;
+	protected StackPane rootPane;
 
 	@FXML
 	protected TableColumn<CarRegistrationEntity, Integer> columnId;
@@ -48,7 +48,7 @@ public class BaseCarRegistrationController {
 	protected TextField fieldSurname;
 
 	@FXML
-	protected TableView<CarRegistrationEntity> tableRegistration;
+	protected TableView<CarRegistrationEntity> tableCarRegistrations;
 
 	@FXML
 	protected TextField fieldDate;
@@ -94,14 +94,14 @@ public class BaseCarRegistrationController {
 	public BaseCarRegistrationController(CarRegistrationPresentation presentation) {
 		this.presentation = presentation;
 		JavaFxHelper.loadFxml(this, "car_registration.fxml");
-		initTableColumn();
+		initTable();
 	}
 
-	public Pane getRootPane() {
+	public StackPane getRootPane() {
 		return rootPane;
 	}
 
-	private void initTableColumn() {
+	private void initTable() {
 		columnBrand.setCellValueFactory(new PropertyValueFactory<>("carBrand"));
 		columnCompany.setCellValueFactory(new PropertyValueFactory<>("companyName"));
 		columnDate.setCellValueFactory(new PropertyValueFactory<>("createdTime"));
@@ -109,6 +109,7 @@ public class BaseCarRegistrationController {
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnLicense.setCellValueFactory(new PropertyValueFactory<>("carLicense"));
 		columnName.setCellValueFactory(new PropertyValueFactory<>("nameAndSurname"));
+		tableCarRegistrations.setPlaceholder(new Label("Tabloda gösterilecek veri yok"));
 	}
 
 	public CarRegistrationEntity toEntityFromFields() {
@@ -149,7 +150,7 @@ public class BaseCarRegistrationController {
 		fieldSurname.setText(empty);
 		cboxBrand.setItems(presentation.getAllCarBrands());
 		cboxBrand.getSelectionModel().selectFirst();
-		tableRegistration.setItems(presentation.getAllCarRegistrations());
+		tableCarRegistrations.setItems(presentation.getAllCarRegistrations());
 
 	}
 

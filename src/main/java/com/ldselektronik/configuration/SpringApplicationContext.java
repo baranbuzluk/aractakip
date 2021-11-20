@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 
-import com.ldselektronik.application.abstracts.IWindow;
-import com.ldselektronik.window.main.window.MainWindow;
-
 /**
  * @author Baran
  *
@@ -32,11 +29,6 @@ public class SpringApplicationContext implements ApplicationContextAware {
 	@Scope("prototype")
 	public Logger produceLogger(InjectionPoint injectionPoint) {
 		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
-	}
-
-	@Bean(value = "MainWindow")
-	public IWindow getMainWindow() {
-		return new MainWindow();
 	}
 
 	@Override

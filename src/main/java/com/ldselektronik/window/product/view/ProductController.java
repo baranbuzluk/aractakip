@@ -22,7 +22,7 @@ public final class ProductController extends BaseProductController {
 	void init() {
 		btnSave.setOnMouseClicked(handlerBtnSave);
 		btnRefresh.setOnMouseClicked(handlerBtnRefresh);
-		tableProduct.getSelectionModel().selectedItemProperty().addListener(listenerSelectedTableRow);
+		tableProductEntities.getSelectionModel().selectedItemProperty().addListener(listenerSelectedTableRow);
 	}
 
 	EventHandler<MouseEvent> handlerBtnSave = event -> {

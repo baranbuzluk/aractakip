@@ -15,7 +15,7 @@ import com.ldselektronik.window.carregistration.view.CarRegistrationController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Baran
@@ -39,7 +39,7 @@ public class CarRegistrationPresentation implements IWindow {
 	}
 
 	@Override
-	public Pane getPane() {
+	public StackPane getPane() {
 		return controller.getRootPane();
 	}
 

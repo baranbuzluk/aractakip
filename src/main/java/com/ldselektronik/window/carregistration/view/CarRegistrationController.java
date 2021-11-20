@@ -21,7 +21,7 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 		btnRefresh.setOnMouseClicked(btnRefreshOnMouseClicked);
 		btnDelete.setOnMouseClicked(btnDeleteOnMouseClicked);
 		btnSearch.setOnMouseClicked(btnSearchOnMouseClicked);
-		tableRegistration.getSelectionModel().selectedItemProperty().addListener(selectedTableRow);
+		tableCarRegistrations.getSelectionModel().selectedItemProperty().addListener(selectedTableRow);
 	}
 
 	EventHandler<MouseEvent> btnDeleteOnMouseClicked = e -> {
@@ -30,7 +30,7 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 		String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
 
 		if (JavaFxHelper.confirmationMessage(title, message)) {
-			presentation.deleteById(tableRegistration.getSelectionModel().getSelectedItem().getId());
+			presentation.deleteById(tableCarRegistrations.getSelectionModel().getSelectedItem().getId());
 			clearAndRefreshAllFields();
 		}
 	};
@@ -56,7 +56,7 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 	};
 
 	EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
-		tableRegistration.setItems(presentation.searchCarRegistration(toEntityFromFields()));
+		tableCarRegistrations.setItems(presentation.searchCarRegistration(toEntityFromFields()));
 	};
 
 	ChangeListener<CarRegistrationEntity> selectedTableRow = (observable, oldValue, newValue) -> {

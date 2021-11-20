@@ -20,7 +20,7 @@ import com.ldselektronik.window.product.view.ProductController;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 /**
  * @author Baran
@@ -42,7 +42,7 @@ public class ProductPresentation implements IWindow {
 		controller = new ProductController(this);
 	}
 
-	public Pane getPane() {
+	public StackPane getPane() {
 		return controller.getPane();
 	}
 
