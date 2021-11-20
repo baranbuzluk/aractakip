@@ -60,10 +60,6 @@ public class CarRegistrationWindow implements ITabWindow {
 		return FXCollections.observableArrayList(carRegistrationService.searchCarRegistration(registration));
 	}
 
-	public CarRegistrationEntity findCarRegistrationById(int id) {
-		return carRegistrationService.findById(id);
-	}
-
 	public void saveCarRegistration(CarRegistrationEntity entity) {
 		carRegistrationService.save(entity);
 	}

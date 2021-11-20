@@ -2,7 +2,6 @@ package com.ldselektronik.window.carregistration.service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,15 +54,6 @@ public class CarRegistrationService {
 			registration.setId(id);
 		}
 		repository.save(registration);
-	}
-
-	/**
-	 * 
-	 * @return <code>null</code> - if given id is not found
-	 */
-	public CarRegistrationEntity findById(int id) {
-		Optional<CarRegistrationEntity> optional = repository.findById(id);
-		return optional.isPresent() ? optional.get() : null;
 	}
 
 	public void deleteById(int id) {
