@@ -99,7 +99,7 @@ public class BaseProductController {
 
 	private void initTableColumns() {
 		columnCashPrice.setCellValueFactory(new PropertyValueFactory<>("cashPrice"));
-		columnCategory.setCellValueFactory(new PropertyValueFactory<>("productCategory"));
+		columnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 		columnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
 		columnCreditPrice.setCellValueFactory(new PropertyValueFactory<>("creditPrice"));
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
