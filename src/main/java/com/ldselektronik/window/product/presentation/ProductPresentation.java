@@ -1,4 +1,4 @@
-package com.ldselektronik.window.product.presentation.window;
+package com.ldselektronik.window.product.presentation;
 
 import java.util.Calendar;
 import java.util.stream.Collectors;
@@ -38,12 +38,11 @@ public class ProductPresentation implements IWindow {
 	private ProductController controller;
 
 	public ProductPresentation() {
-		controller = new ProductController(this);
 	}
 
 	@PostConstruct
 	public void init() {
-		controller.loadControlObjectsFromService();
+		controller = new ProductController(this);
 	}
 
 	public Pane getPane() {

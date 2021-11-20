@@ -5,7 +5,7 @@ import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
 import com.ldselektronik.window.product.data.entity.ProductEntity;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
-import com.ldselektronik.window.product.presentation.window.ProductPresentation;
+import com.ldselektronik.window.product.presentation.ProductPresentation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -99,7 +99,6 @@ public class BaseProductController {
 	}
 
 	private void initTableColumns() {
-		// Init TableColumn
 		columnCashPrice.setCellValueFactory(new PropertyValueFactory<>("cashPrice"));
 		columnCategory.setCellValueFactory(new PropertyValueFactory<>("productCategory"));
 		columnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -110,12 +109,12 @@ public class BaseProductController {
 		columnYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 	}
 
-	protected ProductEntity toDtoFromFields() {
+	protected ProductEntity toEntityFromFields() {
 		ProductEntity entity = new ProductEntity();
 		entity.setCashPrice(!fieldCashPrice.getText().isEmpty() ? Integer.valueOf(fieldCashPrice.getText()) : 0);
 		entity.setCategory(cboxCategory.getSelectionModel().getSelectedItem());
 		entity.setColor(cboxColor.getSelectionModel().getSelectedItem());
-		entity.setCreditPrice(fieldCreditPrice.getText().isEmpty() ? Integer.valueOf(fieldCreditPrice.getText()) : 0);
+		entity.setCreditPrice(!fieldCreditPrice.getText().isEmpty() ? Integer.valueOf(fieldCreditPrice.getText()) : 0);
 		entity.setId(!fieldId.getText().isEmpty() ? Integer.valueOf(fieldId.getText()) : 0);
 		entity.setName(fieldName.getText());
 		entity.setSize(cboxSize.getSelectionModel().getSelectedItem());

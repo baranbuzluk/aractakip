@@ -1,4 +1,4 @@
-package com.ldselektronik.window.product.data.repository;
+package com.ldselektronik.window.product.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

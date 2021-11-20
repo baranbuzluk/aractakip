@@ -2,7 +2,7 @@ package com.ldselektronik.window.main.view;
 
 import com.ldselektronik.configuration.SpringApplicationContext;
 import com.ldselektronik.util.JavaFxHelper;
-import com.ldselektronik.window.product.presentation.window.ProductPresentation;
+import com.ldselektronik.window.product.presentation.ProductPresentation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuBar;

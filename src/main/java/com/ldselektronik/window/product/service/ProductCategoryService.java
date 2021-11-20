@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
-import com.ldselektronik.window.product.data.repository.ProductCategoryRepository;
+import com.ldselektronik.window.product.repository.ProductCategoryRepository;
 
 /**
  * @author Baran

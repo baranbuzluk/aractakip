@@ -1,7 +1,7 @@
 package com.ldselektronik.window.product.presentation.view;
 
 import com.ldselektronik.window.product.data.entity.ProductEntity;
-import com.ldselektronik.window.product.presentation.window.ProductPresentation;
+import com.ldselektronik.window.product.presentation.ProductPresentation;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -16,9 +16,6 @@ public final class ProductController extends BaseProductController {
 	public ProductController(ProductPresentation presentation) {
 		super(presentation);
 		init();
-	}
-
-	public void loadControlObjectsFromService() {
 		clearAndRefreshFields();
 	}
 
@@ -29,7 +26,7 @@ public final class ProductController extends BaseProductController {
 	}
 
 	EventHandler<MouseEvent> handlerBtnSave = event -> {
-		presentation.saveProductEntity(toDtoFromFields());
+		presentation.saveProductEntity(toEntityFromFields());
 		clearAndRefreshFields();
 	};
 
