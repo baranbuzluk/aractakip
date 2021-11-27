@@ -3,14 +3,11 @@ package com.ldselektronik.window.carregistration.presentation;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.ldselektronik.abstracts.ITabWindow;
-import com.ldselektronik.enums.TabWindowOrder;
-import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
-import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.entity.CarBrand;
+import com.ldselektronik.window.carregistration.entity.CarRegistration;
 import com.ldselektronik.window.carregistration.service.CarBrandService;
 import com.ldselektronik.window.carregistration.service.CarRegistrationService;
 import com.ldselektronik.window.carregistration.view.CarRegistrationController;
@@ -24,8 +21,6 @@ import javafx.scene.layout.StackPane;
  *
  */
 @Component
-@Order(TabWindowOrder.CAR_REGISTRATION_ORDER)
-@DependsOn({ "carRegistrationService", "carBrandService" })
 public class CarRegistrationWindow implements ITabWindow {
 
 	private static final String TAB_NAME = "Araç Takip";
@@ -44,23 +39,23 @@ public class CarRegistrationWindow implements ITabWindow {
 	}
 
 	@Override
-	public StackPane getPane() {
+	public StackPane getTabPane() {
 		return controller.getRootPane();
 	}
 
-	public ObservableList<CarBrandEntity> getAllCarBrands() {
+	public ObservableList<CarBrand> getAllCarBrands() {
 		return FXCollections.observableArrayList(carBrandService.getAllCarBrands());
 	}
 
-	public ObservableList<CarRegistrationEntity> getAllCarRegistrations() {
+	public ObservableList<CarRegistration> getAllCarRegistrations() {
 		return FXCollections.observableArrayList(carRegistrationService.getAllCarRegistrations());
 	}
 
-	public ObservableList<CarRegistrationEntity> searchCarRegistration(CarRegistrationEntity registration) {
+	public ObservableList<CarRegistration> searchCarRegistration(CarRegistration registration) {
 		return FXCollections.observableArrayList(carRegistrationService.searchCarRegistration(registration));
 	}
 
-	public void saveCarRegistration(CarRegistrationEntity entity) {
+	public void saveCarRegistration(CarRegistration entity) {
 		carRegistrationService.save(entity);
 	}
 
@@ -73,7 +68,7 @@ public class CarRegistrationWindow implements ITabWindow {
 	}
 
 	@Override
-	public String getTabName() {
+	public String getTabTitleName() {
 		return TAB_NAME;
 	}
 }

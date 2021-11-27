@@ -2,8 +2,12 @@ package com.ldselektronik.window.product.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
+import com.ldselektronik.window.product.data.entity.ProductCategory;
 
-public interface ProductCategoryRepository extends JpaRepository<ProductCategoryEntity, Integer> {
+/**
+ * @author Baran
+ *
+ */
+public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Integer> {
 
 }

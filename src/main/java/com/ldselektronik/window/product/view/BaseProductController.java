@@ -1,13 +1,15 @@
 package com.ldselektronik.window.product.view;
 
-import com.ldselektronik.util.JavaFxHelper;
-import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
-import com.ldselektronik.window.product.data.entity.ProductEntity;
+import java.io.IOException;
+
+import com.ldselektronik.window.product.data.entity.Product;
+import com.ldselektronik.window.product.data.entity.ProductCategory;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
 import com.ldselektronik.window.product.presentation.ProductWindow;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -22,6 +24,8 @@ import javafx.scene.layout.StackPane;
  */
 public class BaseProductController {
 
+	private static final String PRODUCT_FXML = "product.fxml";
+
 	@FXML
 	protected StackPane rootPane;
 
@@ -29,7 +33,7 @@ public class BaseProductController {
 	protected ComboBox<Integer> cboxYear;
 
 	@FXML
-	protected TableColumn<ProductEntity, ProductCategoryEntity> columnCategory;
+	protected TableColumn<Product, ProductCategory> columnCategory;
 
 	@FXML
 	protected TextField fieldName;
@@ -38,25 +42,25 @@ public class BaseProductController {
 	protected Button btnSearch;
 
 	@FXML
-	protected TableColumn<ProductEntity, Integer> columnCreditPrice;
+	protected TableColumn<Product, Integer> columnCreditPrice;
 
 	@FXML
 	protected TextField fieldCashPrice;
 
 	@FXML
-	protected TableColumn<ProductEntity, Integer> columnId;
+	protected TableColumn<Product, Integer> columnId;
 
 	@FXML
-	protected TableColumn<ProductEntity, Integer> columnCashPrice;
+	protected TableColumn<Product, Integer> columnCashPrice;
 
 	@FXML
 	protected ComboBox<Size> cboxSize;
 
 	@FXML
-	protected ComboBox<ProductCategoryEntity> cboxCategory;
+	protected ComboBox<ProductCategory> cboxCategory;
 
 	@FXML
-	protected TableColumn<ProductEntity, Integer> columnYear;
+	protected TableColumn<Product, Integer> columnYear;
 
 	@FXML
 	protected Button btnSave;
@@ -65,7 +69,7 @@ public class BaseProductController {
 	protected Button btnRefresh;
 
 	@FXML
-	protected TableColumn<ProductEntity, Size> columnSize;
+	protected TableColumn<Product, Size> columnSize;
 
 	@FXML
 	protected ComboBox<Color> cboxColor;
@@ -74,30 +78,30 @@ public class BaseProductController {
 	protected TextField fieldCreditPrice;
 
 	@FXML
-	protected TableView<ProductEntity> tableProductEntities;
+	protected TableView<Product> tableProductEntities;
 
 	@FXML
 	protected TextField fieldId;
 
 	@FXML
-	protected TableColumn<ProductEntity, String> columnName;
+	protected TableColumn<Product, String> columnName;
 
 	@FXML
-	protected TableColumn<ProductEntity, Color> columnColor;
+	protected TableColumn<Product, Color> columnColor;
 
 	protected ProductWindow presentation;
 
 	public BaseProductController(ProductWindow presentation) {
 		this.presentation = presentation;
-		JavaFxHelper.loadFxml(this, "product.fxml");
-		initTableColumns();
+		loadFXML();
+		setTableColumns();
 	}
 
 	public StackPane getPane() {
 		return rootPane;
 	}
 
-	private void initTableColumns() {
+	private void setTableColumns() {
 		columnCashPrice.setCellValueFactory(new PropertyValueFactory<>("cashPrice"));
 		columnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
 		columnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -108,8 +112,8 @@ public class BaseProductController {
 		columnYear.setCellValueFactory(new PropertyValueFactory<>("year"));
 	}
 
-	protected ProductEntity toEntityFromFields() {
-		ProductEntity entity = new ProductEntity();
+	protected Product toEntityFromFields() {
+		Product entity = new Product();
 		entity.setCashPrice(!fieldCashPrice.getText().isEmpty() ? Integer.valueOf(fieldCashPrice.getText()) : 0);
 		entity.setCategory(cboxCategory.getSelectionModel().getSelectedItem());
 		entity.setColor(cboxColor.getSelectionModel().getSelectedItem());
@@ -121,7 +125,7 @@ public class BaseProductController {
 		return entity;
 	}
 
-	protected void toFieldFromEntity(ProductEntity entity) {
+	protected void toFieldFromEntity(Product entity) {
 		fieldCashPrice.setText(String.valueOf(entity.getCashPrice()));
 		fieldCreditPrice.setText(String.valueOf(entity.getCreditPrice()));
 		fieldId.setText(String.valueOf(entity.getId()));
@@ -132,27 +136,36 @@ public class BaseProductController {
 		cboxSize.getSelectionModel().select(entity.getYear());
 	}
 
-	protected void clearAndRefreshFields() {
+	protected void clearFields() {
 		String empty = "";
-		// Clear Fields
 		fieldCashPrice.setText(empty);
 		fieldCreditPrice.setText(empty);
 		fieldId.setText(empty);
 		fieldName.setText(empty);
-		// Refresh Product TableView
-		tableProductEntities.setItems(presentation.getAllProductEntity());
-		// Refresh ProductCategory Combobox
-		cboxCategory.setItems(presentation.getAllProductCategories());
+		refreshData();
 		cboxCategory.getSelectionModel().selectFirst();
-		// Refresh Size Combobox
-		cboxSize.setItems(presentation.getSizeList());
 		cboxSize.getSelectionModel().selectFirst();
-		// Refresh Color Combobox
-		cboxColor.setItems(presentation.getColorList());
 		cboxColor.getSelectionModel().selectFirst();
-		// Refresh Year Combobox
-		cboxYear.setItems(presentation.getYearList());
 		cboxYear.getSelectionModel().selectLast();
+
+	}
+
+	protected void refreshData() {
+		tableProductEntities.setItems(presentation.getAllProductEntity());
+		cboxCategory.setItems(presentation.getAllProductCategories());
+		cboxSize.setItems(presentation.getSizeList());
+		cboxColor.setItems(presentation.getColorList());
+		cboxYear.setItems(presentation.getYearList());
+	}
+
+	private void loadFXML() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(PRODUCT_FXML));
+			loader.setController(this);
+			loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

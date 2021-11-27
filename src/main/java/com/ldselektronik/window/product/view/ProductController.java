@@ -1,6 +1,6 @@
 package com.ldselektronik.window.product.view;
 
-import com.ldselektronik.window.product.data.entity.ProductEntity;
+import com.ldselektronik.window.product.data.entity.Product;
 import com.ldselektronik.window.product.presentation.ProductWindow;
 
 import javafx.beans.value.ChangeListener;
@@ -16,7 +16,7 @@ public final class ProductController extends BaseProductController {
 	public ProductController(ProductWindow presentation) {
 		super(presentation);
 		init();
-		clearAndRefreshFields();
+		clearFields();
 	}
 
 	void init() {
@@ -27,14 +27,14 @@ public final class ProductController extends BaseProductController {
 
 	EventHandler<MouseEvent> handlerBtnSave = event -> {
 		presentation.saveProductEntity(toEntityFromFields());
-		clearAndRefreshFields();
+		clearFields();
 	};
 
-	EventHandler<MouseEvent> handlerBtnRefresh = event -> clearAndRefreshFields();
+	EventHandler<MouseEvent> handlerBtnRefresh = event -> clearFields();
 
-	ChangeListener<ProductEntity> listenerSelectedTableRow = (observable, oldValue, newValue) -> {
+	ChangeListener<Product> listenerSelectedTableRow = (observable, oldValue, newValue) -> {
 		if (newValue == null) {
-			clearAndRefreshFields();
+			clearFields();
 		}
 		toFieldFromEntity(newValue);
 	};

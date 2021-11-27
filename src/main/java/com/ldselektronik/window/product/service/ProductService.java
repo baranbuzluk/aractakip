@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ldselektronik.window.product.data.entity.ProductEntity;
+import com.ldselektronik.window.product.data.entity.Product;
 import com.ldselektronik.window.product.repository.ProductRepository;
 
 /**
@@ -26,7 +26,7 @@ public class ProductService {
 	@Autowired
 	Logger logger;
 
-	public List<ProductEntity> getAllProductEntities() {
+	public List<Product> getAllProductEntities() {
 		return repository.findAll();
 
 	}
@@ -36,7 +36,7 @@ public class ProductService {
 	 * object is not saved to the table but is updated.
 	 * 
 	 */
-	public void saveEntity(ProductEntity entity) {
+	public void saveEntity(Product entity) {
 		if (entity == null) {
 			logger.log(Level.WARNING, "Error ProductEntiy object is null! - The object was not saved.");
 			return;
@@ -49,8 +49,8 @@ public class ProductService {
 	 * @return ProductEntiy<br>
 	 *         <code>null</code> - if given id has not
 	 */
-	public ProductEntity findEntityById(int id) {
-		Optional<ProductEntity> optional = repository.findById(id);
+	public Product findEntityById(int id) {
+		Optional<Product> optional = repository.findById(id);
 		return optional.isPresent() ? optional.get() : null;
 	}
 

@@ -19,7 +19,7 @@ import com.ldselektronik.window.product.data.enums.Size;
  *
  */
 @Entity(name = "product")
-public class ProductEntity {
+public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,9 +27,9 @@ public class ProductEntity {
 
 	private String name;
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProductCategoryEntity.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = ProductCategory.class)
 	@JoinColumn(name = "fk_product_category")
-	private ProductCategoryEntity category;
+	private ProductCategory category;
 
 	@Enumerated(EnumType.STRING)
 	private Size size;
@@ -61,11 +61,11 @@ public class ProductEntity {
 		this.name = name;
 	}
 
-	public ProductCategoryEntity getCategory() {
+	public ProductCategory getCategory() {
 		return category;
 	}
 
-	public void setCategory(ProductCategoryEntity category) {
+	public void setCategory(ProductCategory category) {
 		this.category = category;
 	}
 

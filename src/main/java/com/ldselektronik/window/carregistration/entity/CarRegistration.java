@@ -1,4 +1,4 @@
-package com.ldselektronik.window.carregistration.data.entity;
+package com.ldselektronik.window.carregistration.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,13 +21,13 @@ import javax.persistence.TemporalType;
  * @author Baran
  */
 @Entity(name = "car_registration")
-public class CarRegistrationEntity implements Serializable {
+public class CarRegistration implements Serializable {
 
 	private static final long serialVersionUID = -7151549754486256022L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 
 	private String name;
 
@@ -48,19 +48,19 @@ public class CarRegistrationEntity implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date createdTime;
 
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CarBrandEntity.class)
+	@ManyToOne(fetch = FetchType.EAGER, targetEntity = CarBrand.class)
 	@JoinColumn(name = "fk_car_brand_id", insertable = true, updatable = true)
-	private CarBrandEntity carBrand;
+	private CarBrand carBrand;
 
-	public CarRegistrationEntity() {
+	public CarRegistration() {
 		createdTime = new Date();
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -120,11 +120,11 @@ public class CarRegistrationEntity implements Serializable {
 		this.createdTime = createdTime;
 	}
 
-	public CarBrandEntity getCarBrand() {
+	public CarBrand getCarBrand() {
 		return carBrand;
 	}
 
-	public void setCarBrand(CarBrandEntity carBrand) {
+	public void setCarBrand(CarBrand carBrand) {
 		this.carBrand = carBrand;
 	}
 

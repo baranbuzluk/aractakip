@@ -10,10 +10,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.stereotype.Service;
 
-import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.entity.CarRegistration;
 import com.ldselektronik.window.carregistration.repository.CarRegistrationRepository;
 
 /**
@@ -30,7 +29,7 @@ public class CarRegistrationService {
 	@Autowired
 	private Logger logger;
 
-	public List<CarRegistrationEntity> getAllCarRegistrations() {
+	public List<CarRegistration> getAllCarRegistrations() {
 		return repository.findAll();
 
 	}
@@ -44,7 +43,7 @@ public class CarRegistrationService {
 	 * The object is not saved to the table but is updated.
 	 * 
 	 */
-	public void save(CarRegistrationEntity registration) {
+	public void save(CarRegistration registration) {
 		if (registration == null) {
 			logger.log(Level.WARNING, "Error CarRegistrationEntity object is null!");
 			return;
@@ -60,28 +59,12 @@ public class CarRegistrationService {
 		repository.deleteById(id);
 	}
 
-	public List<CarRegistrationEntity> searchCarRegistration(CarRegistrationEntity entity) {
+	public List<CarRegistration> searchCarRegistration(CarRegistration entity) {
 
 		if (entity == null) {
-			logger.severe("Param arg is null!");
 			return Arrays.asList();
 		}
-
-		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase().withIgnorePaths("id", "phone",
-				"companyName", "documentNo", "carLicense", "createdTime", "carBrand");
-
-		boolean isHasName = entity.getName() != null && !entity.getName().isEmpty();
-		boolean isHasSurname = entity.getSurname() != null && !entity.getSurname().isEmpty();
-
-		if (isHasName && isHasSurname) {
-			matcher = matcher.withMatcher("name", GenericPropertyMatchers.contains()).withMatcher("surname",
-					GenericPropertyMatchers.contains());
-		} else if (isHasName) {
-			matcher = matcher.withIgnorePaths("surname").withMatcher("name", GenericPropertyMatchers.contains());
-		} else if (isHasSurname) {
-			matcher = matcher.withIgnorePaths("name").withMatcher("surname", GenericPropertyMatchers.contains());
-		}
-
-		return repository.findAll(Example.of(entity, matcher));
+		return repository
+				.findAll(Example.of(entity, ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues()));
 	}
 }

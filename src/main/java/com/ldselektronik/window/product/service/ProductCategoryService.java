@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
+import com.ldselektronik.window.product.data.entity.ProductCategory;
 import com.ldselektronik.window.product.repository.ProductCategoryRepository;
 
 /**
@@ -20,7 +20,7 @@ public class ProductCategoryService {
 	@Autowired
 	ProductCategoryRepository repository;
 
-	public List<ProductCategoryEntity> getAllProductCategoriesEntities() {
+	public List<ProductCategory> getAllProductCategoriesEntities() {
 		return repository.findAll();
 	}
 }

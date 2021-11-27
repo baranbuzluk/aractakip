@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ldselektronik.window.carregistration.data.entity.CarBrandEntity;
+import com.ldselektronik.window.carregistration.entity.CarBrand;
 import com.ldselektronik.window.carregistration.repository.CarBrandRepository;
 
 /**
@@ -27,7 +27,7 @@ public class CarBrandService {
 	@Autowired
 	private Logger logger;
 
-	public List<CarBrandEntity> getAllCarBrands() {
+	public List<CarBrand> getAllCarBrands() {
 		return repository.findAll();
 
 	}
@@ -35,9 +35,8 @@ public class CarBrandService {
 	/**
 	 * If there is the object has same <code>name</code> value in the table, The
 	 * object is not saved to the table.
-	 * 
 	 */
-	public void save(CarBrandEntity entity) {
+	public void save(CarBrand entity) {
 		if (entity == null) {
 			logger.log(Level.WARNING, "Error CarBrand object is null!");
 			return;

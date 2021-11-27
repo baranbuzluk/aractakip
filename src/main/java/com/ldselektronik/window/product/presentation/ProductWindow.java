@@ -7,13 +7,10 @@ import java.util.stream.IntStream;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import com.ldselektronik.abstracts.ITabWindow;
-import com.ldselektronik.enums.TabWindowOrder;
-import com.ldselektronik.window.product.data.entity.ProductCategoryEntity;
-import com.ldselektronik.window.product.data.entity.ProductEntity;
+import com.ldselektronik.window.product.data.entity.Product;
+import com.ldselektronik.window.product.data.entity.ProductCategory;
 import com.ldselektronik.window.product.data.enums.Color;
 import com.ldselektronik.window.product.data.enums.Size;
 import com.ldselektronik.window.product.service.ProductCategoryService;
@@ -26,10 +23,9 @@ import javafx.scene.layout.StackPane;
 
 /**
  * @author Baran
- *
+ * 
  */
-@Component
-@Order(TabWindowOrder.PRODUCT_ORDER)
+//@Component
 public class ProductWindow implements ITabWindow {
 
 	private static final String TAB_NAME = "Ürünler";
@@ -48,12 +44,12 @@ public class ProductWindow implements ITabWindow {
 	}
 
 	@Override
-	public StackPane getPane() {
+	public StackPane getTabPane() {
 		return controller.getPane();
 	}
 
 	@Override
-	public String getTabName() {
+	public String getTabTitleName() {
 		return TAB_NAME;
 	}
 
@@ -72,19 +68,19 @@ public class ProductWindow implements ITabWindow {
 				.observableArrayList(IntStream.range(startYear, nowYear + 1).boxed().collect(Collectors.toList()));
 	}
 
-	public ObservableList<ProductEntity> getAllProductEntity() {
+	public ObservableList<Product> getAllProductEntity() {
 		return FXCollections.observableArrayList(productService.getAllProductEntities());
 	}
 
-	public void saveProductEntity(ProductEntity entity) {
+	public void saveProductEntity(Product entity) {
 		productService.saveEntity(entity);
 	}
 
-	public ObservableList<ProductCategoryEntity> getAllProductCategories() {
+	public ObservableList<ProductCategory> getAllProductCategories() {
 		return FXCollections.observableArrayList(productCategoryService.getAllProductCategoriesEntities());
 	}
 
-	public ProductEntity findEntityById(int id) {
+	public Product findEntityById(int id) {
 		return productService.findEntityById(id);
 	}
 

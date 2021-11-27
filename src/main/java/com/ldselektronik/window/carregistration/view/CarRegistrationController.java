@@ -1,7 +1,6 @@
 package com.ldselektronik.window.carregistration.view;
 
-import com.ldselektronik.util.JavaFxHelper;
-import com.ldselektronik.window.carregistration.data.entity.CarRegistrationEntity;
+import com.ldselektronik.window.carregistration.entity.CarRegistration;
 import com.ldselektronik.window.carregistration.presentation.CarRegistrationWindow;
 
 import javafx.beans.value.ChangeListener;
@@ -29,7 +28,7 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 		String title = "Silme işlemi yapılıyor";
 		String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
 
-		if (JavaFxHelper.confirmationMessage(title, message)) {
+		if (showConfirmationMessage(title, message)) {
 			presentation.deleteById(tableCarRegistrations.getSelectionModel().getSelectedItem().getId());
 			clearAndRefreshAllFields();
 		}
@@ -38,28 +37,25 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 	EventHandler<MouseEvent> btnRefreshOnMouseClicked = e -> clearAndRefreshAllFields();
 
 	EventHandler<MouseEvent> btnRegisterOnMouseClicked = e -> {
-		CarRegistrationEntity entity = toEntityFromFields();
+		CarRegistration entity = toEntityFromFields();
 
 		if (!presentation.existsByDocumentNo(entity.getDocumentNo())) {
 			presentation.saveCarRegistration(entity);
 			clearAndRefreshAllFields();
 			return;
 		}
-
 		String title = "Kayıt Güncelleniyor";
 		String message = "Dökümasyon No: " + entity.getDocumentNo() + " olan araç kaydını güncellemek istiyormusunuz?";
-		if (JavaFxHelper.confirmationMessage(title, message)) {
+		if (showConfirmationMessage(title, message)) {
 			presentation.saveCarRegistration(entity);
 			clearAndRefreshAllFields();
 		}
-
 	};
 
-	EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> {
-		tableCarRegistrations.setItems(presentation.searchCarRegistration(toEntityFromFields()));
-	};
+	EventHandler<MouseEvent> btnSearchOnMouseClicked = event -> tableCarRegistrations
+			.setItems(presentation.searchCarRegistration(toEntityFromFields()));
 
-	ChangeListener<CarRegistrationEntity> selectedTableRow = (observable, oldValue, newValue) -> {
+	ChangeListener<CarRegistration> selectedTableRow = (observable, oldValue, newValue) -> {
 
 		if (newValue != null) { // when table row is select
 			toFieldFromEntity(newValue);
@@ -70,6 +66,5 @@ public class CarRegistrationController extends BaseCarRegistrationController {
 			fieldDocumentNo.setDisable(false);
 			clearAndRefreshAllFields();
 		}
-
 	};
 }

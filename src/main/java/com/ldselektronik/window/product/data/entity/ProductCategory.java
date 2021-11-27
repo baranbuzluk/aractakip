@@ -1,6 +1,4 @@
-package com.ldselektronik.window.carregistration.data.entity;
-
-import java.io.Serializable;
+package com.ldselektronik.window.product.data.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,15 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
- * Araba markalarının saklanacağı tablodur.,
- * 
  * @author Baran
+ *
  */
-@Entity(name = "car_brand")
-public class CarBrandEntity implements Serializable {
-
-	private static final long serialVersionUID = -8325590200537745924L;
+@Entity(name = "product_category")
+public class ProductCategory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
