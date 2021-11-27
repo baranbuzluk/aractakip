@@ -2,6 +2,8 @@ package com.ldselektronik.application.view;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.ldselektronik.abstracts.ITabWindow;
 import com.ldselektronik.configuration.SpringApplicationContext;
 
@@ -22,6 +24,7 @@ public class MainApplicationController {
 	private TabPane tabPane;
 
 	public MainApplicationController() {
+		startApplicationContext();
 		loadFXML();
 		loadTabWindows();
 	}
@@ -39,6 +42,11 @@ public class MainApplicationController {
 		Tab tab = new Tab(tabName);
 		tab.setContent(pane);
 		tabPane.getTabs().add(tab);
+	}
+
+	@SuppressWarnings("resource")
+	private static void startApplicationContext() {
+		new AnnotationConfigApplicationContext(SpringApplicationContext.class);
 	}
 
 	private void loadFXML() {
