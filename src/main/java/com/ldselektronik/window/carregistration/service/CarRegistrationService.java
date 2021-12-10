@@ -1,7 +1,5 @@
 package com.ldselektronik.window.carregistration.service;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.ldselektronik.window.carregistration.entity.CarRegistration;
 import com.ldselektronik.window.carregistration.repository.CarRegistrationRepository;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * @author Baran
@@ -29,8 +30,8 @@ public class CarRegistrationService {
 	@Autowired
 	private Logger logger;
 
-	public List<CarRegistration> getAllCarRegistrations() {
-		return repository.findAll();
+	public ObservableList<CarRegistration> getAllCarRegistrations() {
+		return FXCollections.observableArrayList(repository.findAll());
 
 	}
 
@@ -55,16 +56,15 @@ public class CarRegistrationService {
 		repository.save(registration);
 	}
 
-	public void deleteById(int id) {
-		repository.deleteById(id);
+	public void delete(CarRegistration entity) {
+		repository.delete(entity);
 	}
 
-	public List<CarRegistration> searchCarRegistration(CarRegistration entity) {
-
+	public ObservableList<CarRegistration> searchCarRegistration(CarRegistration entity) {
 		if (entity == null) {
-			return Arrays.asList();
+			return FXCollections.observableArrayList();
 		}
-		return repository
-				.findAll(Example.of(entity, ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues()));
+		return FXCollections.observableArrayList(repository
+				.findAll(Example.of(entity, ExampleMatcher.matchingAll().withIgnoreCase().withIgnoreNullValues())));
 	}
 }

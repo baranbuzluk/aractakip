@@ -1,6 +1,5 @@
 package com.ldselektronik.window.carregistration.service;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.ldselektronik.window.carregistration.entity.CarBrand;
 import com.ldselektronik.window.carregistration.repository.CarBrandRepository;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * 
@@ -27,8 +29,8 @@ public class CarBrandService {
 	@Autowired
 	private Logger logger;
 
-	public List<CarBrand> getAllCarBrands() {
-		return repository.findAll();
+	public ObservableList<CarBrand> getAllCarBrands() {
+		return FXCollections.observableArrayList(repository.findAll());
 
 	}
 

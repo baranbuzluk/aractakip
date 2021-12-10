@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import com.ldselektronik.window.carregistration.entity.CarBrand;
 import com.ldselektronik.window.carregistration.entity.CarRegistration;
-import com.ldselektronik.window.carregistration.presentation.CarRegistrationWindow;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -96,10 +96,7 @@ public class BaseCarRegistrationController {
 	@FXML
 	protected TextField fieldId;
 
-	protected CarRegistrationWindow presentation;
-
-	public BaseCarRegistrationController(CarRegistrationWindow presentation) {
-		this.presentation = presentation;
+	public BaseCarRegistrationController() {
 		loadFXML();
 		initTable();
 	}
@@ -119,7 +116,7 @@ public class BaseCarRegistrationController {
 		tableCarRegistrations.setPlaceholder(new Label("Tabloda gösterilecek veri yok"));
 	}
 
-	public CarRegistration toEntityFromFields() {
+	public CarRegistration fromFieldsToEntity() {
 		CarRegistration entity = new CarRegistration();
 		entity.setCarBrand(cboxBrand.getSelectionModel().getSelectedItem());
 		entity.setCarLicense(fieldCarLicense.getText().isEmpty() ? null : fieldCarLicense.getText());
@@ -132,7 +129,7 @@ public class BaseCarRegistrationController {
 		return entity;
 	}
 
-	public void toFieldFromEntity(CarRegistration entity) {
+	public void fromEntityToFields(CarRegistration entity) {
 		fieldCarLicense.setText(entity.getCarLicense());
 		fieldCompanyName.setText(entity.getCompanyName());
 		fieldDate.setText(entity.getCreatedTime().toString());
@@ -144,9 +141,8 @@ public class BaseCarRegistrationController {
 		cboxBrand.getSelectionModel().select(entity.getCarBrand());
 	}
 
-	public void clearAndRefreshAllFields() {
+	public void clearFields() {
 		String empty = "";
-		refreshData();
 		fieldCarLicense.setText(empty);
 		fieldCompanyName.setText(empty);
 		fieldDate.setText(empty);
@@ -158,9 +154,8 @@ public class BaseCarRegistrationController {
 		cboxBrand.getSelectionModel().selectFirst();
 	}
 
-	public void refreshData() {
-		cboxBrand.setItems(presentation.getAllCarBrands());
-		tableCarRegistrations.setItems(presentation.getAllCarRegistrations());
+	public void setCarBrandComboboxItems(ObservableList<CarBrand> list) {
+		cboxBrand.setItems(list);
 	}
 
 	private void loadFXML() {

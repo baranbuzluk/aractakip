@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ldselektronik.abstracts.ITabWindow;
-import com.ldselektronik.window.carregistration.entity.CarBrand;
+import com.ldselektronik.util.JavaFXHelper;
 import com.ldselektronik.window.carregistration.entity.CarRegistration;
 import com.ldselektronik.window.carregistration.service.CarBrandService;
 import com.ldselektronik.window.carregistration.service.CarRegistrationService;
 import com.ldselektronik.window.carregistration.view.CarRegistrationController;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -35,7 +36,10 @@ public class CarRegistrationWindow implements ITabWindow {
 
 	@PostConstruct
 	void init() {
-		controller = new CarRegistrationController(this);
+		controller = new CarRegistrationController();
+		refreshCarBrandCombobox();
+		refreshCarRegistrationTable();
+		initControllerEventHandlers();
 	}
 
 	@Override
@@ -43,32 +47,67 @@ public class CarRegistrationWindow implements ITabWindow {
 		return controller.getRootPane();
 	}
 
-	public ObservableList<CarBrand> getAllCarBrands() {
-		return FXCollections.observableArrayList(carBrandService.getAllCarBrands());
-	}
-
-	public ObservableList<CarRegistration> getAllCarRegistrations() {
-		return FXCollections.observableArrayList(carRegistrationService.getAllCarRegistrations());
-	}
-
-	public ObservableList<CarRegistration> searchCarRegistration(CarRegistration registration) {
-		return FXCollections.observableArrayList(carRegistrationService.searchCarRegistration(registration));
-	}
-
-	public void saveCarRegistration(CarRegistration entity) {
-		carRegistrationService.save(entity);
-	}
-
-	public boolean existsByDocumentNo(String documentNo) {
-		return carRegistrationService.existsByDocumentNo(documentNo);
-	}
-
-	public void deleteById(int id) {
-		carRegistrationService.deleteById(id);
-	}
-
 	@Override
 	public String getTabTitleName() {
 		return TAB_NAME;
 	}
+
+	private void refreshCarRegistrationTable() {
+		controller.setCarRegistrationTableItems(carRegistrationService.getAllCarRegistrations());
+	}
+
+	private void refreshCarBrandCombobox() {
+		controller.setCarBrandComboboxItems(carBrandService.getAllCarBrands());
+	}
+
+	private void initControllerEventHandlers() {
+		controller.handleDeleteButtonOnClicked(onClickDeleteButton);
+		controller.handleRefreshButtonOnClicked(e -> controller.clearFields());
+		controller.handleSaveButtonOnClicked(onClickSaveButton);
+		controller.handleSearchButtonOnClicked(onClickSearchButton);
+		controller.handleSelectedItemOnTableListener(tableItemSelectedListener);
+	}
+
+	private EventHandler<MouseEvent> onClickSearchButton = event -> controller.setCarRegistrationTableItems(
+			carRegistrationService.searchCarRegistration(controller.fromFieldsToEntity()));
+
+	private ChangeListener<CarRegistration> tableItemSelectedListener = (observable, oldValue, newValue) -> {
+		if (newValue != null) { // when table row is selected
+			controller.fromEntityToFields(newValue);
+			controller.enableDeleteButton();
+			controller.disableDocumentNoField();
+		} else {
+			controller.clearFields();
+			controller.disableDeleteButton();
+			controller.enableDocumentNoField();
+		}
+	};
+
+	private EventHandler<MouseEvent> onClickSaveButton = e -> {
+		final CarRegistration entity = controller.fromFieldsToEntity();
+		if (carRegistrationService.existsByDocumentNo(entity.getDocumentNo())) {
+			carRegistrationService.save(entity);
+			controller.clearFields();
+			refreshCarRegistrationTable();
+			return;
+		}
+		final String title = "Kayıt Güncelleniyor";
+		final String message = "Dökümasyon No: " + entity.getDocumentNo()
+				+ " olan araç kaydını güncellemek istiyormusunuz?";
+		if (JavaFXHelper.showConfirmationMessage(title, message)) {
+			carRegistrationService.save(entity);
+			controller.clearFields();
+			refreshCarRegistrationTable();
+		}
+	};
+
+	EventHandler<MouseEvent> onClickDeleteButton = e -> {
+		final String title = "Silme işlemi yapılıyor";
+		final String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
+		if (JavaFXHelper.showConfirmationMessage(title, message)) {
+			carRegistrationService.delete(controller.getSelectedCarRegistrationOnTable());
+			controller.clearFields();
+		}
+	};
+
 }
