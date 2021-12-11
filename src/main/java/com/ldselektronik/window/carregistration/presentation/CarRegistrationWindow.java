@@ -37,6 +37,7 @@ public class CarRegistrationWindow implements ITabWindow {
 	@PostConstruct
 	void init() {
 		controller = new CarRegistrationController();
+		controller.clearFields();
 		refreshCarBrandCombobox();
 		refreshCarRegistrationTable();
 		initControllerEventHandlers();
@@ -62,11 +63,17 @@ public class CarRegistrationWindow implements ITabWindow {
 
 	private void initControllerEventHandlers() {
 		controller.handleDeleteButtonOnClicked(onClickDeleteButton);
-		controller.handleRefreshButtonOnClicked(e -> controller.clearFields());
+		controller.handleRefreshButtonOnClicked(onClickRefreshButton);
 		controller.handleSaveButtonOnClicked(onClickSaveButton);
 		controller.handleSearchButtonOnClicked(onClickSearchButton);
 		controller.handleSelectedItemOnTableListener(tableItemSelectedListener);
 	}
+
+	private EventHandler<MouseEvent> onClickRefreshButton = e -> {
+		controller.clearFields();
+		refreshCarBrandCombobox();
+		refreshCarRegistrationTable();
+	};
 
 	private EventHandler<MouseEvent> onClickSearchButton = event -> controller.setCarRegistrationTableItems(
 			carRegistrationService.searchCarRegistration(controller.fromFieldsToEntity()));
@@ -85,28 +92,31 @@ public class CarRegistrationWindow implements ITabWindow {
 
 	private EventHandler<MouseEvent> onClickSaveButton = e -> {
 		final CarRegistration entity = controller.fromFieldsToEntity();
-		if (carRegistrationService.existsByDocumentNo(entity.getDocumentNo())) {
-			carRegistrationService.save(entity);
-			controller.clearFields();
-			refreshCarRegistrationTable();
-			return;
-		}
-		final String title = "Kayıt Güncelleniyor";
-		final String message = "Dökümasyon No: " + entity.getDocumentNo()
-				+ " olan araç kaydını güncellemek istiyormusunuz?";
-		if (JavaFXHelper.showConfirmationMessage(title, message)) {
+		if (isConfirmedToSave(entity)) {
 			carRegistrationService.save(entity);
 			controller.clearFields();
 			refreshCarRegistrationTable();
 		}
 	};
 
-	EventHandler<MouseEvent> onClickDeleteButton = e -> {
+	private boolean isConfirmedToSave(CarRegistration entity) {
+		if (carRegistrationService.existsByDocumentNo(entity.getDocumentNo())) {
+			final String title = "Kayıt Güncelleniyor";
+			final String message = "Dökümasyon No: " + entity.getDocumentNo()
+					+ " olan araç kaydını güncellemek istiyormusunuz?";
+			return JavaFXHelper.showConfirmationMessage(title, message);
+		}
+		return true;
+	}
+
+	private EventHandler<MouseEvent> onClickDeleteButton = e -> {
 		final String title = "Silme işlemi yapılıyor";
 		final String message = "Bu işlem geri alınamaz.\\nKayıt silinsin mi ?";
 		if (JavaFXHelper.showConfirmationMessage(title, message)) {
 			carRegistrationService.delete(controller.getSelectedCarRegistrationOnTable());
 			controller.clearFields();
+			refreshCarBrandCombobox();
+			refreshCarRegistrationTable();
 		}
 	};
 

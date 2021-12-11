@@ -1,5 +1,6 @@
 package com.ldselektronik.window.carregistration.view;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.ldselektronik.util.JavaFXHelper;
@@ -116,6 +117,7 @@ public class CarRegistrationController {
 		entity.setPhone(fieldPhone.getText().isEmpty() ? null : fieldPhone.getText());
 		entity.setSurname(fieldSurname.getText().isEmpty() ? null : fieldSurname.getText());
 		entity.setId(fieldId.getText().isEmpty() ? null : Integer.valueOf(fieldId.getText()));
+		entity.setCreatedTime(fieldDate.getText().isEmpty() ? null : LocalDate.parse(fieldDate.getText()));
 		return entity;
 	}
 
@@ -135,7 +137,7 @@ public class CarRegistrationController {
 		String empty = "";
 		fieldCarLicense.setText(empty);
 		fieldCompanyName.setText(empty);
-		fieldDate.setText(empty);
+		fieldDate.setText(LocalDate.now().toString());
 		fieldDocumentNo.setText(empty);
 		fieldId.setText(empty);
 		fieldName.setText(empty);

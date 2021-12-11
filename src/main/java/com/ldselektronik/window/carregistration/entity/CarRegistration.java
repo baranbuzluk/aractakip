@@ -1,6 +1,9 @@
 package com.ldselektronik.window.carregistration.entity;
 
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -112,12 +115,12 @@ public class CarRegistration implements Serializable {
 		this.carLicense = carLicense;
 	}
 
-	public Date getCreatedTime() {
-		return createdTime;
+	public LocalDate getCreatedTime() {
+		return Instant.ofEpochMilli(createdTime.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
-	public void setCreatedTime(Date createdTime) {
-		this.createdTime = createdTime;
+	public void setCreatedTime(LocalDate localDate) {
+		this.createdTime = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	public CarBrand getCarBrand() {
