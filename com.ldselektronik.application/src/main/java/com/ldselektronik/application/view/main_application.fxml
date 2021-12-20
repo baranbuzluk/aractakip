@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="rootPane" maxHeight="1.7976931348623157E308"
+	maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17"
+	xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" />
+	</children>
+</StackPane>
