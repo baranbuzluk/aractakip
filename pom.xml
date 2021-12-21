@@ -12,17 +12,13 @@
 	<packaging>pom</packaging>
 	<name>Arac Takip Programi</name>
 	<modules>
+		<module>application</module>
+		<module>window</module>
 		<module>core</module>
-		<module>com.ldselektronik.application</module>
-		<module>com.ldselektronik.entity</module>
-		<module>com.ldselektronik.car.registration</module>
-		<module>com.ldselektronik.util</module>
-		<module>com.ldselektronik.abstracts</module>
-		<module>com.ldselektronik.product</module>
 	</modules>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -33,7 +29,7 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

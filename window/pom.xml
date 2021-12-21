@@ -5,5 +5,10 @@
     <artifactId>aractakip</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>com.ldselektronik.abstracts</artifactId>
+  <artifactId>window</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+		<module>car.registration</module>
+		<module>product</module>
+	</modules>
 </project>

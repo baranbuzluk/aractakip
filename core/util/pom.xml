@@ -2,8 +2,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.ldselektronik</groupId>
-    <artifactId>aractakip</artifactId>
+    <artifactId>core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>com.ldselektronik.util</artifactId>
+  <artifactId>util</artifactId>
 </project>

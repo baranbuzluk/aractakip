@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.ldselektronik.abstracts.ITabWindow;
 import com.ldselektronik.product.data.entity.Product;
@@ -26,7 +25,7 @@ import javafx.scene.layout.StackPane;
  * @author Baran
  * 
  */
-@Component
+//@Component
 public class ProductWindow implements ITabWindow {
 
 	private static final String TAB_NAME = "Ürünler";

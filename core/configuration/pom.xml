@@ -2,22 +2,34 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.ldselektronik</groupId>
-		<artifactId>aractakip</artifactId>
+		<artifactId>core</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>com.ldselektronik.car.registration</artifactId>
+	<artifactId>configuration</artifactId>
 
 	<dependencies>
 
 		<dependency>
 			<groupId>com.ldselektronik</groupId>
-			<artifactId>com.ldselektronik.util</artifactId>
+			<artifactId>util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.ldselektronik</groupId>
-			<artifactId>com.ldselektronik.abstracts</artifactId>
+			<artifactId>abstracts</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ldselektronik</groupId>
+			<artifactId>car.registration</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ldselektronik</groupId>
+			<artifactId>product</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
