@@ -3,7 +3,7 @@ package com.ldselektronik.application;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.ldselektronik.application.presentation.MainApplicationWindow;
+import com.ldselektronik.abstracts.IMainApplicationWindow;
 import com.ldselektronik.core.SpringApplicationContext;
 
 import javafx.application.Application;
@@ -20,10 +20,11 @@ public class Main extends Application {
 		launch(args);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	public void start(Stage primaryStage) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(SpringApplicationContext.class);
-		MainApplicationWindow mainWindow = context.getBean(MainApplicationWindow.class);
+		IMainApplicationWindow mainWindow = context.getBean(IMainApplicationWindow.class);
 		primaryStage.setTitle("LDS Elektronik Araç Takip Yazılımı v0.0.1");
 		primaryStage.setScene(new Scene(mainWindow.getRootPane()));
 		primaryStage.show();

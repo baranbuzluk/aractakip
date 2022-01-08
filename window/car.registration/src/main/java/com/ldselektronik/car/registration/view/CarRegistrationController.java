@@ -2,6 +2,7 @@ package com.ldselektronik.car.registration.view;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.function.UnaryOperator;
 
 import com.ldselektronik.car.registration.entity.CarBrand;
 import com.ldselektronik.car.registration.entity.CarRegistration;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -94,6 +96,7 @@ public class CarRegistrationController {
 	public CarRegistrationController() {
 		JavaFXHelper.loadFXML(CAR_REGISTRATION_FXML, this);
 		initTable();
+		initChangeListener();
 	}
 
 	private void initTable() {
@@ -197,5 +200,31 @@ public class CarRegistrationController {
 	public StackPane getRootPane() {
 		return rootPane;
 	}
+
+	private void initChangeListener() {
+		fieldDocumentNo.setTextFormatter(new TextFormatter<>(fieldDocumentNoTextFormatter));
+		fieldPhone.setTextFormatter(new TextFormatter<>(fielPhoneTextFormatter));
+
+	}
+
+	private UnaryOperator<TextFormatter.Change> fieldDocumentNoTextFormatter = c -> {
+		if (fieldDocumentNo.getText().length() >= 10) {
+			c.setText("");
+			return c;
+		}
+		c.setText(c.getText().replaceAll("[^\\d]", ""));
+		return c;
+	};
+
+	private UnaryOperator<TextFormatter.Change> fielPhoneTextFormatter = c -> {
+		StringBuilder builder = new StringBuilder();
+
+		if (fieldPhone.getText().length() == 3) {
+			builder.append("-");
+		}
+		builder.append(c.getText().replaceAll("[^\\d]", ""));
+		c.setText(builder.toString());
+		return c;
+	};
 
 }

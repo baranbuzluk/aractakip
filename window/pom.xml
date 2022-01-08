@@ -10,5 +10,6 @@
   <modules>
 		<module>car.registration</module>
 		<module>product</module>
-	</modules>
+		<module>main</module>
+  </modules>
 </project>

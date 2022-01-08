@@ -1,4 +1,4 @@
-package com.ldselektronik.application.view;
+package com.ldselektronik.view;
 
 import com.ldselektronik.util.JavaFXHelper;
 

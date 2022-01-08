@@ -2,42 +2,24 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.ldselektronik</groupId>
-		<artifactId>core</artifactId>
+		<artifactId>window</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>configuration</artifactId>
+	<artifactId>main</artifactId>
 
 	<dependencies>
-
+	
 		<dependency>
 			<groupId>com.ldselektronik</groupId>
 			<artifactId>util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+	
 		<dependency>
 			<groupId>com.ldselektronik</groupId>
 			<artifactId>abstracts</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.ldselektronik</groupId>
-			<artifactId>car.registration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.ldselektronik</groupId>
-			<artifactId>product</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.ldselektronik</groupId>
-			<artifactId>main</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 	</dependencies>
+
 </project>
